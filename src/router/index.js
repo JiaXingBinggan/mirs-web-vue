@@ -7,18 +7,24 @@ Vue.use(Router)
 // import ItemView from '../views/ItemView.vue'
 import UserView from '../views/UserView.vue'
 import IndexView from '../views/IndexView.vue'
+import AccountsView from '../views/AccountsView.vue'
+import NewView from '../views/NewView.vue'
+import HotView from '../views/HotView.vue'
+import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import MovieView from '../views/MovieView.vue'
 
 export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    { path: '/top/:page(\\d+)?', redirect: '/' },
-    { path: '/new/:page(\\d+)?', redirect: '/' },
-    { path: '/show/:page(\\d+)?', redirect: '/' },
-    { path: '/ask/:page(\\d+)?', redirect: '/' },
-    { path: '/job/:page(\\d+)?', redirect: '/' },
-    { path: '/item/:id(\\d+)', redirect: '/' },
+    { path: '/', component: IndexView },
+    { path: '/accounts', component: AccountsView },
+    { path: '/new', component: NewView },
+    { path: '/hot', component: HotView },
+    { path: '/login', component: LoginView },
+    { path: '/register', component: RegisterView },
     { path: '/user/:id', component: UserView },
-    { path: '/', component: IndexView }
+    { path: '/movie/:id', component: MovieView }
   ]
 })

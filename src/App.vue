@@ -5,11 +5,12 @@
         <router-link to="/" exact>
           <img class="logo" src="./assets/logo.png" alt="logo">
         </router-link>
-        <router-link to="/top">Top</router-link>
-        <router-link to="/new">New</router-link>
-        <router-link to="/show">Show</router-link>
-        <router-link to="/ask">Ask</router-link>
-        <router-link to="/job">Jobs</router-link>
+        <router-link to="/">首页</router-link>
+        <router-link to="/new">最新电影</router-link>
+        <router-link to="/hot">热门电影</router-link>
+        <router-link to="/login">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <router-link to="/accounts">个人中心</router-link>
       </div>
     </div>
     <transition name="fade" mode="out-in">
