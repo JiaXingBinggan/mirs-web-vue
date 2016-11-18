@@ -1,2 +1,18 @@
 # mirs-web-vue
-如题，电影智能推荐系统前端的vue实现
+
+> A Vue.js project for mirs
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+```
+
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
