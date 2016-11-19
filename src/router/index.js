@@ -5,6 +5,7 @@ Vue.use(Router)
 
 // import { createListView } from '../views/CreateListView'
 // import ItemView from '../views/ItemView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 import UserView from '../views/UserView.vue'
 import IndexView from '../views/IndexView.vue'
 import AccountsView from '../views/AccountsView.vue'
@@ -25,6 +26,7 @@ export default new Router({
     { path: '/login', component: LoginView },
     { path: '/register', component: RegisterView },
     { path: '/user/:id', component: UserView },
-    { path: '/movie/:id', component: MovieView }
+    { path: '/movie/:id', component: MovieView },
+    { path: '/*', component: NotFoundView }
   ]
 })
