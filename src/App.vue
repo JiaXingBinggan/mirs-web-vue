@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <notification
+    :options.sync="options"
+    :show.sync="show">
+    </notification>
     <div class="header">
       <div class="inner">
         <router-link to="/" exact>
@@ -19,6 +23,21 @@
   </div>
 </template>
 
+<script>
+import Notification from './components/common/Notification'
+
+export default {
+  components: { Notification },
+  computed: {
+    show () {
+      return this.$store.state.notification.show
+    },
+    options () {
+      return this.$store.state.notification.options
+    }
+  }
+}
+</script>
 
 <style lang="stylus">
 body

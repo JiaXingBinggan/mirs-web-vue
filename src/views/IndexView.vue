@@ -1,6 +1,7 @@
 <template>
   <div class="index-view">
-    <h1>{{msg}}</h1>
+    <h1 @click='notice()'>{{msg}}</h1>
+  </div>
 </template>
 
 <script>
@@ -9,6 +10,18 @@ export default {
   data () {
     return {
       msg: 'Welcome to the index page!'
+    }
+  },
+  methods: {
+    notice () {
+      this.$store.dispatch('newNotice', {
+        autoClose: true,
+        showTime: 5000,
+        backgroundColor: '#769FCD',
+        content: 'Now you see me!',
+        countdownBar: true,
+        barColor: '#415F77'
+      })
     }
   }
 }
