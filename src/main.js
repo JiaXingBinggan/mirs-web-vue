@@ -20,4 +20,3 @@ const app = new Vue(Vue.util.extend({
 }, App))
 
 app.$mount('#app')
-
