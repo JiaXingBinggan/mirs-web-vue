@@ -33,7 +33,7 @@ index.html
 │   ├── mutations.js              # 根级别的 mutation
 │   ├── getters.js                # 根级别的 getters
 │   └── modules                   # store模块
-│       ├── notification.js       # 购物车模块
+│       ├── notification.js       # 通知模块
 │       └── ...                   # 其他模块
 └── views                         # View组件
 ```
