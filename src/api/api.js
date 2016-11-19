@@ -1,4 +1,6 @@
-const host = process.env.HOST
+const host = process.env.NODE_ENV === 'production'
+? 'http://www.91film.com'
+: 'http://localhost:8080'
 
 const api = {
   oAuthUrl: type => host + '/oauth/' + type,
