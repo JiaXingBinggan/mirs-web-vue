@@ -6,10 +6,10 @@
     <mu-text-field v-model="password" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
     <div class="captcha">
       <div class="captcha-input">
-        <mu-text-field v-model="captcha" label="验证码" hintText="请输入验证码" type="text" :maxLength="4" fullWidth icon="sms" labelFloat/><br/>
+        <mu-text-field v-model="captcha" label="验证码" hintText="请输入验证码" :errorText="inputErrorText" @textOverflow="handleInputOverflow" type="text" :maxLength="4" fullWidth icon="sms" labelFloat/><br/>
       </div>
       <div class="captcha-img">
-        <img :src="captchaUrl" alt="点击刷新" />
+        <img :src="captchaUrl"  @click="changeCaptcha" alt="点击刷新" />
       </div>
     </div>
     <div class="button">
@@ -26,18 +26,46 @@
 
 <script>
 import api from '../api/api'
+import userApi from '../api/userApi'
 export default {
   name: 'login-view',
   data () {
     return {
-      msg: 'This is login view!',
+      inputErrorText: '',
       username: '',
       password: '',
       captcha: '',
       captchaUrl: api.getCaptchaUrl()
     }
+  },
+  methods: {
+    changeCaptcha () {
+      this.captchaUrl = api.getCaptchaUrl() + '?' + Math.floor(Math.random() * 100)
+    },
+    handleInputOverflow (isOverflow) {
+      this.inputErrorText = isOverflow ? '超过啦！！！！' : ''
+    }
+  },
+  watch: {
+    captcha () {
+      if (this.captcha.length === 4) {
+        window.console.log(this.captcha)
+        userApi.checkCaptcha(this.captcha)
+        .then(function (res) {
+          console.log(res.data)
+        })
+        .catch(function (res) {
+          if (res instanceof Error) {
+            console.log(res.message)
+          } else {
+            console.log(res.data)
+          }
+        })
+      }
+    }
   }
 }
+
 </script>
 
 <style lang="stylus" scoped>
