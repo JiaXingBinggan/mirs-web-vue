@@ -5,17 +5,18 @@
     :show.sync="show">
     </notification>
     <div class="header">
-      <div class="inner">
-        <router-link to="/" exact>
-          <img class="logo" src="./assets/logo.png" alt="logo">
-        </router-link>
-        <router-link to="/">首页</router-link>
-        <router-link to="/new">最新电影</router-link>
-        <router-link to="/hot">热门电影</router-link>
-        <router-link to="/login">登录</router-link>
-        <router-link to="/register">注册</router-link>
-        <router-link to="/accounts">个人中心</router-link>
-      </div>
+      <mu-appbar title="Title">
+        <div class="inner">
+          <router-link to="/" exact>
+            <img class="logo" src="./assets/logo.png" alt="logo">
+          </router-link>
+          <router-link to="/">首页</router-link>
+          <router-link to="/new">最新电影</router-link>
+          <router-link to="/hot">热门电影</router-link>
+        </div>
+        <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
+        <mu-flat-button @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
+      </mu-appbar>
     </div>
     <transition name="fade" mode="out-in">
       <router-view class="view"></router-view>
@@ -34,6 +35,11 @@ export default {
     },
     options () {
       return this.$store.state.notification.options
+    }
+  },
+  methods: {
+    goToLoginPage () {
+      this.$router.push('/login')
     }
   }
 }
@@ -56,12 +62,13 @@ a
   background-color #ff6600
   position fixed
   z-index 999
+  max-width 1366px
   height 55px
   top 0
   left 0
   right 0
   .inner
-    max-width 800px
+    max-width 1366px
     box-sizing border-box
     margin 0px auto
     padding 15px 5px
@@ -94,7 +101,7 @@ a
   vertical-align middle
 
 .view
-  max-width 800px
+  max-width 1366px
   margin 0 auto
   position relative
 
