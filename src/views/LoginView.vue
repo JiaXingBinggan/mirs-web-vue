@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="button">
-      <mu-raised-button @click="" label="注册" class="register-button"/>
+      <mu-raised-button @click="register" label="注册" class="register-button"/>
       <mu-raised-button @click="doLogin" label="登录" class="login-button" primary/>
     </div>
   </div>
@@ -27,6 +27,7 @@
 import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
 import _ from 'lodash'
+import SHA512 from 'crypto-js/sha512'
 export default {
   name: 'login-view',
   data () {
@@ -45,10 +46,13 @@ export default {
     handleInputOverflow (isOverflow) {
       this.inputErrorText = isOverflow ? '超过啦！！！！' : ''
     },
+    register () {
+      this.$router.push('/register')
+    },
     doLogin () {
       var data = {
         'username': this.username,
-        'password': this.password,
+        'password': SHA512(this.password).toString(),
         'captcha': this.captcha
       }
       var _this = this
