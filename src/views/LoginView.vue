@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="button">
-      <mu-raised-button label="注册" class="register-button"/>
-      <mu-raised-button label="登录" class="login-button" primary/>
+      <mu-raised-button @click="" label="注册" class="register-button"/>
+      <mu-raised-button @click="doLogin" label="登录" class="login-button" primary/>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import api from '../api/api'
+import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
 export default {
   name: 'login-view',
@@ -35,22 +35,40 @@ export default {
       username: '',
       password: '',
       captcha: '',
-      captchaUrl: api.getCaptchaUrl()
+      captchaUrl: commonApi.captchaUrl()
     }
   },
   methods: {
     changeCaptcha () {
-      this.captchaUrl = api.getCaptchaUrl() + '?' + Math.floor(Math.random() * 100)
+      this.captchaUrl = commonApi.captchaUrl() + '?' + Math.floor(Math.random() * 100)
     },
     handleInputOverflow (isOverflow) {
       this.inputErrorText = isOverflow ? '超过啦！！！！' : ''
+    },
+    doLogin () {
+      var data = {
+        'username': this.username,
+        'password': this.password,
+        'captcha': this.captcha
+      }
+      userApi.login(data)
+      .then(function (res) {
+        console.log(res.data)
+      })
+      .catch(function (res) {
+        if (res instanceof Error) {
+          console.log(res.message)
+        } else {
+          console.log(res.data)
+        }
+      })
     }
   },
   watch: {
     captcha () {
       if (this.captcha.length === 4) {
         window.console.log(this.captcha)
-        userApi.checkCaptcha(this.captcha)
+        commonApi.checkCaptcha(this.captcha)
         .then(function (res) {
           console.log(res.data)
         })

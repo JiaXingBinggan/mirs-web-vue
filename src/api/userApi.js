@@ -1,15 +1,21 @@
-import api from './api'
+import { userApi } from './api'
 import axios from 'axios'
 
 export default {
-  login (info) {
-    return axios.post(api.loginUrl(), info)
-  },
-  checkCaptcha (captcha) {
-    window.console.log(axios)
+  login (data) {
     return axios({
-      method: 'get',
-      url: api.checkCaptchaUrl(captcha),
+      method: 'post',
+      url: userApi.loginUrl(),
+      data: data,
+      withCredentials: true
+    }
+    )
+  },
+  register (data) {
+    return axios({
+      method: 'post',
+      url: userApi.registerUrl(),
+      data: data,
       withCredentials: true
     }
     )
