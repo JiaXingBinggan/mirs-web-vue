@@ -162,27 +162,29 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-h1
-  background #864
-.login-panel
-  width 300px
-  height 300px
-  margin 0 auto
-  .captcha
-    .captcha-input
-      float left
-      width 200px
-    .captcha-img
-      float left
-      width 100px
-      height 80px
-  .button
+.login-view
+  margin-top 50px
+  h1
+    background #864
+  .login-panel
     width 300px
+    height 300px
     margin 0 auto
-    .register-button
-      margin-left 24px
-    .login-button
-      margin-left 76px
+    .captcha
+      .captcha-input
+        float left
+        width 200px
+      .captcha-img
+        float left
+        width 100px
+        height 80px
+    .button
+      width 300px
+      margin 0 auto
+      .register-button
+        margin-left 24px
+      .login-button
+        margin-left 76px
 img
   width 100px
   height 50px

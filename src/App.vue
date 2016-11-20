@@ -16,13 +16,7 @@
         </div>
         <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
         <mu-flat-button v-if="!login" @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
-        <mu-icon-menu v-if="login" icon="more_vert" :anchorOrigin="leftTop" :targetOrigin="leftTop">
-          <mu-menu-item title="Refresh" />
-          <mu-menu-item title="Send feedback" />
-          <mu-menu-item title="Settings" />
-          <mu-menu-item title="Help" />
-          <mu-menu-item title="Sign out" />
-        </mu-icon-menu>
+        
       </mu-appbar>
     </div>
     <transition name="fade" mode="out-in">
