@@ -1,6 +1,7 @@
 <template>
 <div class="login-view">
   <h1>{{msg}}</h1>
+  <mu-toast v-if="toast" :message="toastMessage" @close="hideToast"/>
   <div class="login-panel">
     <mu-text-field v-model="username" label="用户名" hintText="请输入用户名" type="text" fullWidth icon="person" labelFloat/><br/>
     <mu-text-field v-model="password" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
@@ -32,6 +33,8 @@ export default {
   data () {
     return {
       inputErrorText: '',
+      toast: '',
+      toastMessage: '',
       username: '',
       password: '',
       captcha: '',
@@ -44,6 +47,17 @@ export default {
     },
     handleInputOverflow (isOverflow) {
       this.inputErrorText = isOverflow ? '超过啦！！！！' : ''
+    },
+    showToast (toastMessage) {
+      this.toast = true
+      this.toastMessage = toastMessage
+      if (this.toastTimer) clearTimeout(this.toastTimer)
+      this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
+    },
+    hideToast () {
+      this.toast = false
+      this.toastMessage = ''
+      if (this.toastTimer) clearTimeout(this.toastTimer)
     },
     doLogin () {
       var data = {
@@ -68,8 +82,20 @@ export default {
     captcha () {
       if (this.captcha.length === 4) {
         window.console.log(this.captcha)
+        // 绑定作用域
+        var _this = this
         commonApi.checkCaptcha(this.captcha)
         .then(function (res) {
+          if (res.data['success'] === true) {
+            // 提示正确
+            _this.showToast('great!')
+          } else {
+            // 自动刷新验证码
+            window.console.log(_this)
+            _this.showToast('opps!')
+            _this.changeCaptcha()
+            _this.captcha = ''
+          }
           console.log(res.data)
         })
         .catch(function (res) {
