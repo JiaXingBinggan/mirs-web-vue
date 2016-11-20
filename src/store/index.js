@@ -5,6 +5,7 @@ import * as mutations from './mutations'
 import * as getters from './getters'
 import createLogger from 'vuex/dist/logger'
 import notification from './modules/notification'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-    notification
+    notification,
+    user
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []
