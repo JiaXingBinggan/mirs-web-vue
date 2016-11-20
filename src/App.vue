@@ -16,7 +16,7 @@
         </div>
         <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
         <mu-flat-button v-if="!login" @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
-        
+        <mu-avatar class="avatar" v-if="login" slot="right" :src="myron" :size="45" />
       </mu-appbar>
     </div>
     <transition name="fade" mode="out-in">
@@ -27,6 +27,8 @@
 
 <script>
 import Notification from './components/common/Notification'
+
+// [].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)})
 
 export default {
   components: { Notification },
@@ -97,6 +99,9 @@ a
     font-size .9em
     margin 0
     float right
+  .avatar
+    margin-left 35px
+    margin-right 15px
 
 .logo
   width 24px
