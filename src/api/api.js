@@ -10,11 +10,11 @@ export const commonApi = {
   // POST
   checkCaptchaUrl: captcha => host + '/captcha?captcha=' + captcha,
   // POST
-  checkUsernameUrl: username => host + '/instpection/username?username=' + username,
+  checkUsernameUrl: username => host + '/inspection/username?name=' + username,
   // POST
-  checkUserEmailUrl: userEamil => host + '/instpection/userEamil?userEamil=' + userEamil,
+  checkUserEmailUrl: userEmail => host + '/inspection/userEmail?email=' + userEmail,
   // POST
-  checkVerificationUrl: verification => host + '/instpection/verification?verification=' + verification
+  checkVerificationUrl: verification => host + '/inspection/verification?verification=' + verification
 }
 
 export const userApi = {

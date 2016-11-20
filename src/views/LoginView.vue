@@ -1,7 +1,5 @@
 <template>
 <div class="login-view">
-  <h1>{{msg}}</h1>
-  <mu-toast v-if="toast" :message="toastMessage" @close="hideToast"/>
   <div class="login-panel">
     <mu-text-field v-model="username" label="用户名" hintText="请输入用户名" type="text" fullWidth icon="person" labelFloat/><br/>
     <mu-text-field v-model="password" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
@@ -28,13 +26,12 @@
 <script>
 import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
+import _ from 'lodash'
 export default {
   name: 'login-view',
   data () {
     return {
       inputErrorText: '',
-      toast: '',
-      toastMessage: '',
       username: '',
       password: '',
       captcha: '',
@@ -48,25 +45,30 @@ export default {
     handleInputOverflow (isOverflow) {
       this.inputErrorText = isOverflow ? '超过啦！！！！' : ''
     },
-    showToast (toastMessage) {
-      this.toast = true
-      this.toastMessage = toastMessage
-      if (this.toastTimer) clearTimeout(this.toastTimer)
-      this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
-    },
-    hideToast () {
-      this.toast = false
-      this.toastMessage = ''
-      if (this.toastTimer) clearTimeout(this.toastTimer)
-    },
     doLogin () {
       var data = {
         'username': this.username,
         'password': this.password,
         'captcha': this.captcha
       }
+      var _this = this
       userApi.login(data)
       .then(function (res) {
+        if (res.data['success'] === false) {
+          _this.$store.dispatch('newNotice', {
+            autoClose: true,
+            showTime: 1000,
+            backgroundColor: '#f24f4f',
+            content: res.data['error']
+          })
+          _this.changeCaptcha()
+          _this.captcha = ''
+          _this.username = ''
+          _this.password = ''
+        } else {
+          // 登录成功
+          _this.$router.push('/')
+        }
         console.log(res.data)
       })
       .catch(function (res) {
@@ -76,36 +78,77 @@ export default {
           console.log(res.data)
         }
       })
-    }
+    },
+    validateCaptcha () {
+      // 绑定作用域
+      var _this = this
+      commonApi.checkCaptcha(this.captcha)
+      .then(function (res) {
+        if (res.data['success'] === false) {
+          _this.$store.dispatch('newNotice', {
+            autoClose: true,
+            showTime: 1000,
+            backgroundColor: '#f24f4f',
+            content: res.data['error']
+          })
+          // 自动刷新验证码
+          _this.changeCaptcha()
+          _this.captcha = ''
+        }
+        console.log(res.data)
+      })
+      .catch(function (res) {
+        if (res instanceof Error) {
+          console.log(res.message)
+        } else {
+          console.log(res.data)
+        }
+      })
+    },
+    checkUsername: _.debounce(
+        function () {
+          window.console.log(this.username)
+          var _this = this
+          var valid
+          if (this.username.indexOf('@') > 0) {
+            valid = commonApi.checkUserEmail(this.username)
+          } else {
+            valid = commonApi.checkUsername(this.username)
+          }
+          valid
+          .then(function (res) {
+            if (res.data['success'] === false) {
+              _this.$store.dispatch('newNotice', {
+                autoClose: true,
+                showTime: 1000,
+                backgroundColor: '#f24f4f',
+                content: res.data['error']
+              })
+              _this.username = ''
+            }
+          })
+          .catch(function (res) {
+            if (res instanceof Error) {
+              console.log(res.message)
+            } else {
+              console.log(res.data)
+            }
+          })
+        },
+        // 这是我们为用户停止输入等待的毫秒数
+        500
+      )
   },
   watch: {
     captcha () {
       if (this.captcha.length === 4) {
         window.console.log(this.captcha)
-        // 绑定作用域
-        var _this = this
-        commonApi.checkCaptcha(this.captcha)
-        .then(function (res) {
-          if (res.data['success'] === true) {
-            // 提示正确
-            _this.showToast('great!')
-          } else {
-            // 自动刷新验证码
-            window.console.log(_this)
-            _this.showToast('opps!')
-            _this.changeCaptcha()
-            _this.captcha = ''
-          }
-          console.log(res.data)
-        })
-        .catch(function (res) {
-          if (res instanceof Error) {
-            console.log(res.message)
-          } else {
-            console.log(res.data)
-          }
-        })
+        this.validateCaptcha()
       }
+    },
+    username () {
+      // 注册时需要
+      // this.checkUsername()
     }
   }
 }
