@@ -139,8 +139,8 @@ export default {
   }
   .notification .content {
     padding: 0.75rem 2rem;
-    text-align:center;
-    font-size: 20px;
+    text-align: center;
+    font-size: 23px;
   }
   .countdown {
     width: 100%;

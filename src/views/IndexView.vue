@@ -15,12 +15,9 @@ export default {
   methods: {
     notice () {
       this.$store.dispatch('newNotice', {
-        autoClose: true,
-        showTime: 5000,
+        autoClose: false,
         backgroundColor: '#769FCD',
-        content: 'Now you see me!',
-        countdownBar: true,
-        barColor: '#415F77'
+        content: 'Now you see me!'
       })
     }
   }
