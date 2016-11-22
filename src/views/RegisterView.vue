@@ -44,7 +44,7 @@
                 <mu-text-field v-model.trim="verification" :errorText="verificationError" label="验证码" hintText="请输入邮箱中收到的验证码" @textOverflow="handleVerificationOverflow" type="text" :maxLength="6" icon="sms" fullWidth labelFloat/><br/>
               </div>
               <div class="verification-button-div">
-                <mu-flat-button label="发送邮件" class="verification-button">
+                <mu-flat-button :label="sendEmailStatus" @click="sendEmail" class="verification-button" :disabled="sentEmailTimeout !== 0">
               </div>
             </div>
           </div>
@@ -79,6 +79,8 @@ export default {
     return {
       activeStep: 0,
       status: '注册成功',
+      sendEmailStatus: '发送验证码',
+      sentEmailTimeout: 0,
       username: '',
       email: '',
       password: '',
@@ -127,6 +129,22 @@ export default {
   methods: {
     goToIndexPage () {
       this.$router.push('/')
+    },
+    countDown () {
+      var _this = this
+      this.sentEmailTimeout--
+      this.sendEmailStatus = '剩余' + this.sentEmailTimeout + '秒'
+      if (this.sentEmailTimeout > 0) {
+        setTimeout(_this.countDown, 1000)
+      } else {
+        this.sendEmailStatus = '点击重发'
+      }
+    },
+    sendEmail () {
+      // 倒计时秒数
+      this.sentEmailTimeout = 90
+      this.countDown()
+      // 向后台请求
     },
     handleVerificationOverflow (isOverflow) {
       this.verificationError = isOverflow ? '超过啦！！！！' : ''
@@ -388,6 +406,7 @@ export default {
             height 80px
             display table
             .verification-button
+              float left
               margin-top 25%
               display table-cell
               vertical-align middle

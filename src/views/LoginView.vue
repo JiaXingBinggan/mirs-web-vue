@@ -60,41 +60,42 @@ export default {
       if (this.captcha.length !== 4) {
         this.captchaError = '请输入完整的4位验证码'
       }
-      if (this.usernameError && this.passwordError && this.captchaError) {
-        return
-      }
-      var data = {
-        'username': this.username,
-        'password': SHA512(this.password).toString(),
-        'captcha': this.captcha
-      }
-      var _this = this
-      userApi.login(data)
-      .then(function (res) {
-        if (res.data['success'] === false) {
-          _this.$store.dispatch('newNotice', {
-            autoClose: true,
-            showTime: 1000,
-            backgroundColor: '#f24f4f',
-            content: res.data['error']
-          })
-          _this.changeCaptcha()
-          _this.captcha = ''
-        } else {
-          // 登录成功
-          _this.password = ''
-          _this.$store.dispatch('doLogin', res.data['data'])
-          _this.$router.push('/')
+      if (this.usernameError === '' &&
+          this.passwordError === '' &&
+          this.captchaError === '') {
+        var data = {
+          'username': this.username,
+          'password': SHA512(this.password).toString(),
+          'captcha': this.captcha
         }
-        window.console.log(res.data)
-      })
-      .catch(function (res) {
-        if (res instanceof Error) {
-          window.console.log(res.message)
-        } else {
+        var _this = this
+        userApi.login(data)
+        .then(function (res) {
+          if (res.data['success'] === false) {
+            _this.$store.dispatch('newNotice', {
+              autoClose: true,
+              showTime: 1000,
+              backgroundColor: '#f24f4f',
+              content: res.data['error']
+            })
+            _this.changeCaptcha()
+            _this.captcha = ''
+          } else {
+            // 登录成功
+            _this.password = ''
+            _this.$store.dispatch('doLogin', res.data['data'])
+            _this.$router.push('/')
+          }
           window.console.log(res.data)
-        }
-      })
+        })
+        .catch(function (res) {
+          if (res instanceof Error) {
+            window.console.log(res.message)
+          } else {
+            window.console.log(res.data)
+          }
+        })
+      }
     },
     validateCaptcha () {
       // 绑定作用域
