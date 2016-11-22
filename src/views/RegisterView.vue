@@ -39,7 +39,14 @@
               <div v-if="scorePassword > 80" class="password-strong"></div>
             </div>
             <mu-text-field v-model.trim="passwordAgain" :errorText="passwordAgainError" label="确认密码" hintText="请再次输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
-            <mu-text-field v-model.trim="verification" :errorText="verificationError" label="验证码" hintText="请输入邮箱中收到的验证码" @textOverflow="handleVerificationOverflow" type="text" :maxLength="6" fullWidth icon="sms" labelFloat/><br/>
+            <div class="verification-area">
+              <div class="verification-input">
+                <mu-text-field v-model.trim="verification" :errorText="verificationError" label="验证码" hintText="请输入邮箱中收到的验证码" @textOverflow="handleVerificationOverflow" type="text" :maxLength="6" icon="sms" fullWidth labelFloat/><br/>
+              </div>
+              <div class="verification-button-div">
+                <mu-flat-button label="发送邮件" class="verification-button">
+              </div>
+            </div>
           </div>
           <div v-if="activeStep === 2" class="register-step-three">
             <div v-if="registerSuccess" class="register-success">
@@ -343,18 +350,30 @@ export default {
           width 245px
           border 1px solid #ccc
           margin-left 55px
-        .password-weak
-          height 8px
-          width 82px
-          background-color red
-        .password-medium
-          height 8px
-          width 165px
-          background-color orange
-        .password-strong
-          height 8px
-          background-color green
-
+          .password-weak
+            height 8px
+            width 82px
+            background-color red
+          .password-medium
+            height 8px
+            width 165px
+            background-color orange
+          .password-strong
+            height 8px
+            background-color green
+        .verification-area
+          .verification-input
+            float left
+            width 200px
+          .verification-button-div
+            float left
+            width 100px
+            height 80px
+            display table
+            .verification-button
+              margin-top 25%
+              display table-cell
+              vertical-align middle
       .register-step-three
 
       .register-button
