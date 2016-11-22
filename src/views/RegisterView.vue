@@ -129,18 +129,32 @@ export default {
       this.verificationError = isOverflow ? '超过啦！！！！' : ''
     },
     handleNext () {
-      if (this.activeStep === 0 && this.email !== '') {
+      if (this.activeStep === 0) {
+        if (this.email === '') {
+          this.emailError = '请先输入邮箱'
+        }
         if (this.emailError === '') {
           this.activeStep++
         }
       } else if (this.activeStep === 1) {
+        if (this.username === '') {
+          this.usernameError = '请输入用户名'
+        }
+        if (this.password === '') {
+          this.passwordError = '请输入密码'
+        }
+        if (this.passwordAgain === '') {
+          this.passwordAgainError = '请确认密码'
+        }
+        if (this.verification.length !== 6) {
+          this.verificationError = '请输入6位验证码'
+        }
+
         if (this.usernameError === '' &&
+            this.passwordError === '' &&
+            this.emailError === '' &&
             this.passwordAgainError === '' &&
-            this.verificationError === '' &&
-            this.username !== '' &&
-            this.password !== '' &&
-            this.passwordAgain !== '' &&
-            this.verification.length === 6
+            this.verificationError === ''
           ) {
           // 上传用户提交的信息，进行注册操作
           this.doRegister()
@@ -192,7 +206,7 @@ export default {
         })
       },
       // 这是我们为用户停止输入等待的毫秒数
-      500
+      1000
     ),
     checkEmail: _.debounce(
       function () {
@@ -263,7 +277,7 @@ export default {
           }
         })
       },
-      500
+      50
     ),
     doRegister () {
       var data = {
