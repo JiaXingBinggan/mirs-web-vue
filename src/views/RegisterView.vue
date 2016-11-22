@@ -92,11 +92,11 @@ export default {
             this.password !== '' &&
             this.verification.length === 6
           ) {
+          // 上传用户提交的信息，进行注册操作
+          this.doRegister()
           // 清空密码信息
           this.password = ''
           this.passwordAgain = ''
-          // 上传用户提交的信息，进行注册操作
-          this.doRegister()
           this.activeStep++
         }
       }

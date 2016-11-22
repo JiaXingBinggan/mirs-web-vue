@@ -26,7 +26,7 @@
 <script>
 import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
-// import SHA512 from 'crypto-js/sha512'
+import SHA512 from 'crypto-js/sha512'
 export default {
   name: 'login-view',
   data () {
@@ -51,8 +51,7 @@ export default {
     doLogin () {
       var data = {
         'username': this.username,
-        // 'password': SHA512(this.password).toString(),
-        'password': this.password,
+        'password': SHA512(this.password).toString(),
         'captcha': this.captcha
       }
       var _this = this
@@ -71,6 +70,7 @@ export default {
           _this.password = ''
         } else {
           // 登录成功
+          _this.password = ''
           _this.$store.dispatch('doLogin', res.data['data'])
           _this.$router.push('/')
         }
