@@ -68,13 +68,13 @@ a
   background-color #ff6600
   position fixed
   z-index 999
-  max-width 1366px
+  max-width 13660px
   height 55px
   top 0
   left 0
   right 0
   .inner
-    max-width 1366px
+    max-width 13660px
     box-sizing border-box
     margin 0px auto
     padding 15px 5px
