@@ -24,14 +24,14 @@
         </p>
         <template v-if="!finished">
           <div v-if="activeStep === 0" class="register-step-one">
-            <mu-text-field v-model="email" :errorText="emailError" label="邮箱" hintText="请输入你的邮箱" type="email" fullWidth icon="emial" labelFloat/><br/>
+            <mu-text-field v-model.trim="email" :errorText="emailError" label="邮箱" hintText="请输入你的邮箱" type="email" fullWidth icon="emial" labelFloat/><br/>
           </div>
           <div v-if="activeStep === 1" class="register-step-two">
-            <mu-text-field v-model="email" label="您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
-            <mu-text-field v-model="username" :errorText="usernameError" label="用户名" hintText="请输入你的用户名" errorText="" type="text" fullWidth icon="person" labelFloat/><br/>
-            <mu-text-field v-model="password" :errorText="passwordError" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
-            <mu-text-field v-model="passwordAgain" :errorText="passwordAgainError" label="确认密码" hintText="请再次输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
-            <mu-text-field v-model="verification" :errorText="verificationError" label="验证码" hintText="请输入邮箱中收到的验证码" @textOverflow="handleVerificationOverflow" type="text" :maxLength="6" fullWidth icon="sms" labelFloat/><br/>
+            <mu-text-field v-model.trim="email" label="您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
+            <mu-text-field v-model.trim="username" :errorText="usernameError" label="用户名" hintText="请输入你的用户名" type="text" fullWidth icon="person" labelFloat/><br/>
+            <mu-text-field v-model.trim="password" :errorText="passwordError" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
+            <mu-text-field v-model.trim="passwordAgain" :errorText="passwordAgainError" label="确认密码" hintText="请再次输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
+            <mu-text-field v-model.trim="verification" :errorText="verificationError" label="验证码" hintText="请输入邮箱中收到的验证码" @textOverflow="handleVerificationOverflow" type="text" :maxLength="6" fullWidth icon="sms" labelFloat/><br/>
           </div>
           <div v-if="activeStep === 2" class="register-step-three">
             3
@@ -76,41 +76,71 @@ export default {
       this.verificationError = isOverflow ? '超过啦！！！！' : ''
     },
     handleNext () {
-      this.activeStep++
+      if (this.activeStep === 0 && this.email !== '') {
+        if (this.emailError === '') {
+          this.activeStep++
+        }
+      } else if (this.activeStep === 1) {
+        if (this.usernameError === '' &&
+            this.passwordAgainError === '' &&
+            this.verificationError === '' &&
+            this.username !== '' &&
+            this.password !== '' &&
+            this.verification.length === 6
+          ) {
+          // 清空密码信息
+          this.password = ''
+          this.passwordAgain = ''
+
+          this.activeStep++
+        }
+      }
     },
     handlePrev () {
+      // 清空密码信息
+      this.password = ''
+      this.passwordAgain = ''
       this.activeStep--
     },
     reset () {
       this.activeStep = 0
+      this.username = ''
+      this.email = ''
+      this.password = ''
+      this.passwordAgain = ''
+      this.verification = ''
+      this.emailError = ''
+      this.usernameError = ''
+      this.passwordError = ''
+      this.passwordAgainError = ''
+      this.verificationError = ''
     },
-    checkUsername () {
-      window.console.log(this.username)
-      var _this = this
-      var valid
-      if (this.username.indexOf('@') > 0) {
-        valid = commonApi.checkUserEmail(this.username)
-      } else {
-        valid = commonApi.checkUsername(this.username)
-      }
-      valid
-      .then(function (res) {
-        if (res.data['success'] === false) {
-          _this.usernameError = '用户名已被注册啦!'
-        }
-      })
-      .catch(function (res) {
-        if (res instanceof Error) {
-          console.log(res.message)
-        } else {
-          console.log(res.data)
-        }
-      })
-    },
+    checkUsername: _.debounce(
+      function () {
+        window.console.log(this.username)
+        var _this = this
+        commonApi.checkUsername(this.username)
+        .then(function (res) {
+          if (res.data['success'] === false) {
+            window.console.log(res.data)
+            _this.usernameError = res.data['error']
+          }
+        })
+        .catch(function (res) {
+          if (res instanceof Error) {
+            window.console.log(res.message)
+          } else {
+            window.console.log(res.data)
+          }
+        })
+      },
+      // 这是我们为用户停止输入等待的毫秒数
+      500
+    ),
     checkEmail: _.debounce(
       function () {
         window.console.log(this.email)
-        // var _this = this
+        var _this = this
         // 首先验证邮箱的格式
         /* eslint no-useless-escape: "off" */
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -118,15 +148,36 @@ export default {
           this.emailError = '邮箱格式不正确'
         }
         // 然后验证邮箱是否被注册
+        commonApi.checkUserEmail(this.email)
+        .then(function (res) {
+          if (res.data['success'] === false) {
+            window.console.log(res.data)
+            _this.emailError = res.data['error']
+          }
+        })
+        .catch(function (res) {
+          if (res instanceof Error) {
+            window.console.log(res.message)
+          } else {
+            window.console.log(res.data)
+          }
+        })
       },
       // 等待时间
       500
-    )
+    ),
+    doRegister () {
+      //
+    }
   },
   watch: {
     email () {
       this.emailError = ''
       this.checkEmail()
+    },
+    username () {
+      this.usernameError = ''
+      this.checkUsername()
     }
   }
 }

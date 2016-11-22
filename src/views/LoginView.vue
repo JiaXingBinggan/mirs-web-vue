@@ -26,7 +26,6 @@
 <script>
 import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
-import _ from 'lodash'
 // import SHA512 from 'crypto-js/sha512'
 export default {
   name: 'login-view',
@@ -75,13 +74,13 @@ export default {
           _this.$store.dispatch('doLogin', res.data['data'])
           _this.$router.push('/')
         }
-        console.log(res.data)
+        window.console.log(res.data)
       })
       .catch(function (res) {
         if (res instanceof Error) {
-          console.log(res.message)
+          window.console.log(res.message)
         } else {
-          console.log(res.data)
+          window.console.log(res.data)
         }
       })
     },
@@ -101,49 +100,16 @@ export default {
           _this.changeCaptcha()
           _this.captcha = ''
         }
-        console.log(res.data)
+        window.console.log(res.data)
       })
       .catch(function (res) {
         if (res instanceof Error) {
-          console.log(res.message)
+          window.console.log(res.message)
         } else {
-          console.log(res.data)
+          window.console.log(res.data)
         }
       })
-    },
-    checkUsername: _.debounce(
-        function () {
-          window.console.log(this.username)
-          var _this = this
-          var valid
-          if (this.username.indexOf('@') > 0) {
-            valid = commonApi.checkUserEmail(this.username)
-          } else {
-            valid = commonApi.checkUsername(this.username)
-          }
-          valid
-          .then(function (res) {
-            if (res.data['success'] === false) {
-              _this.$store.dispatch('newNotice', {
-                autoClose: true,
-                showTime: 1000,
-                backgroundColor: '#f24f4f',
-                content: res.data['error']
-              })
-              _this.username = ''
-            }
-          })
-          .catch(function (res) {
-            if (res instanceof Error) {
-              console.log(res.message)
-            } else {
-              console.log(res.data)
-            }
-          })
-        },
-        // 这是我们为用户停止输入等待的毫秒数
-        500
-      )
+    }
   },
   watch: {
     captcha () {
@@ -151,10 +117,6 @@ export default {
         window.console.log(this.captcha)
         this.validateCaptcha()
       }
-    },
-    username () {
-      // 注册时需要
-      // this.checkUsername()
     }
   }
 }
