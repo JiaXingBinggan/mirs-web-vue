@@ -69,6 +69,9 @@ export default {
   computed: {
     finished () {
       return this.activeStep > 2
+    },
+    passwordEqual () {
+      return this.password === this.passwordAgain || !(this.password !== '' && this.passwordAgain !== '')
     }
   },
   methods: {
@@ -146,6 +149,7 @@ export default {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         if (!re.test(this.email)) {
           this.emailError = '邮箱格式不正确'
+          return
         }
         // 然后验证邮箱是否被注册
         commonApi.checkUserEmail(this.email)
@@ -166,6 +170,44 @@ export default {
       // 等待时间
       500
     ),
+    checkPassword: _.debounce(
+      function () {
+        if (this.password.length <= 8) {
+          this.passwordError = '密码强度太弱!请修改'
+        }
+      },
+      500
+    ),
+    checkPasswordAgain: _.debounce(
+      function () {
+        this.passwordAgainError = ''
+        if (!this.passwordEqual) {
+          this.passwordAgainError = '两次输入的密码不一致!'
+        }
+      },
+      500
+    ),
+    checkVerification: _.debounce(
+      function () {
+        window.console.log(this.verification)
+        var _this = this
+        commonApi.checkVerification(this.verification)
+        .then(function (res) {
+          if (res.data['success'] === false) {
+            window.console.log(res.data)
+            _this.usernameError = res.data['error']
+          }
+        })
+        .catch(function (res) {
+          if (res instanceof Error) {
+            window.console.log(res.message)
+          } else {
+            window.console.log(res.data)
+          }
+        })
+      },
+      500
+    ),
     doRegister () {
       //
     }
@@ -178,6 +220,21 @@ export default {
     username () {
       this.usernameError = ''
       this.checkUsername()
+    },
+    password () {
+      this.passwordError = ''
+      this.checkPassword()
+      this.checkPasswordAgain()
+    },
+    passwordAgain () {
+      this.passwordAgainError = ''
+      this.checkPasswordAgain()
+    },
+    verification () {
+      this.verificationError = ''
+      if (this.verification.length === 6) {
+        this.checkVerification()
+      }
     }
   }
 }
