@@ -1,11 +1,11 @@
 <template>
 <div class="login-view">
   <div class="login-panel">
-    <mu-text-field v-model="username" label="用户名" hintText="请输入用户名" type="text" fullWidth icon="person" labelFloat/><br/>
-    <mu-text-field v-model="password" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
+    <mu-text-field v-model="username" label="用户名" hintText="请输入用户名" :errorText="usernameError" type="text" fullWidth icon="person" labelFloat/><br/>
+    <mu-text-field v-model="password" label="密码" hintText="请输入密码" :errorText="passwordError" type="password" fullWidth icon="lock" labelFloat/><br/>
     <div class="captcha">
       <div class="captcha-input">
-        <mu-text-field v-model="captcha" label="验证码" hintText="请输入验证码" :errorText="inputErrorText" @textOverflow="handleInputOverflow" type="text" :maxLength="4" fullWidth icon="sms" labelFloat/><br/>
+        <mu-text-field v-model="captcha" label="验证码" hintText="请输入验证码" :errorText="captchaError" @textOverflow="handleInputOverflow" type="text" :maxLength="4" fullWidth icon="sms" labelFloat/><br/>
       </div>
       <div class="captcha-img">
         <img :src="captchaUrl"  @click="changeCaptcha" alt="点击刷新" />
@@ -31,10 +31,12 @@ export default {
   name: 'login-view',
   data () {
     return {
-      inputErrorText: '',
       username: '',
       password: '',
       captcha: '',
+      usernameError: '',
+      passwordError: '',
+      captchaError: '',
       captchaUrl: commonApi.captchaUrl()
     }
   },
@@ -43,12 +45,24 @@ export default {
       this.captchaUrl = commonApi.captchaUrl() + '?' + Math.floor(Math.random() * 100)
     },
     handleInputOverflow (isOverflow) {
-      this.inputErrorText = isOverflow ? '超过啦！！！！' : ''
+      this.captchaError = isOverflow ? '超过啦！！！！' : ''
     },
     register () {
       this.$router.push('/register')
     },
     doLogin () {
+      if (this.username === '') {
+        this.usernameError = '请输入用户名'
+      }
+      if (this.password === '') {
+        this.passwordError = '请输入密码'
+      }
+      if (this.captcha.length !== 4) {
+        this.captchaError = '请输入完整的4位验证码'
+      }
+      if (this.usernameError && this.passwordError && this.captchaError) {
+        return
+      }
       var data = {
         'username': this.username,
         'password': SHA512(this.password).toString(),
@@ -112,7 +126,14 @@ export default {
     }
   },
   watch: {
+    username () {
+      this.usernameError = ''
+    },
+    password () {
+      this.passwordError = ''
+    },
     captcha () {
+      this.captchaError = ''
       if (this.captcha.length === 4) {
         window.console.log(this.captcha)
         this.validateCaptcha()
