@@ -14,13 +14,16 @@
         </mu-step>
         <mu-step>
           <mu-step-label>
-            注册成功
+            {{status}}
           </mu-step-label>
         </mu-step>
       </mu-stepper>
       <div class="register-step-content">
-        <p v-if="finished">
-          都完成啦!<a href="javascript:;" @click="reset">点这里</a>可以重置
+        <p v-if="finished && registerSuccess">
+          都完成啦!<a href="/">点这里</a>去首页逛逛吧
+        </p>
+        <p v-if="finished && !registerSuccess">
+          诶呀!<a href="/register">点这里</a>重新来过
         </p>
         <template v-if="!finished">
           <div v-if="activeStep === 0" class="register-step-one">
@@ -30,11 +33,24 @@
             <mu-text-field v-model.trim="email" :errorText="emailError" label="您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
             <mu-text-field v-model.trim="username" :errorText="usernameError" label="用户名" hintText="请输入你的用户名" type="text" fullWidth icon="person" labelFloat/><br/>
             <mu-text-field v-model.trim="password" :errorText="passwordError" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
+            <div v-if="password" class="password-score">
+              <div v-if="scorePassword <= 60" class="password-weak"></div>
+              <div v-if="scorePassword > 60 && scorePassword <= 80" v-text=""class="password-medium"></div>
+              <div v-if="scorePassword > 80" class="password-strong"></div>
+            </div>
             <mu-text-field v-model.trim="passwordAgain" :errorText="passwordAgainError" label="确认密码" hintText="请再次输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
             <mu-text-field v-model.trim="verification" :errorText="verificationError" label="验证码" hintText="请输入邮箱中收到的验证码" @textOverflow="handleVerificationOverflow" type="text" :maxLength="6" fullWidth icon="sms" labelFloat/><br/>
           </div>
           <div v-if="activeStep === 2" class="register-step-three">
-            3
+            <div v-if="registerSuccess" class="register-success">
+              用户：{{username}}已成功注册 <br/>
+              邮箱是：{{email}} <br/>
+              注册时间是: {{registerTime}} <br/>
+              IP地址为: {{registerIp}} <br/>
+            </div>
+            <div v-if="!registerSuccess" class="register-failed">
+              ┗|｀O′|┛ 嗷~~应该是某种神秘力量让注册失败了!
+            </div>
           </div>
           <div class="register-button">
             <mu-flat-button class="register-back-button" label="上一步" :disabled="activeStep === 0" @click="handlePrev"/>
@@ -55,11 +71,14 @@ export default {
   data () {
     return {
       activeStep: 0,
+      status: '注册成功',
       username: '',
       email: '',
       password: '',
       passwordAgain: '',
       verification: '',
+      registerTime: '',
+      registerIp: '',
       emailError: '',
       usernameError: '',
       passwordError: '',
@@ -73,6 +92,29 @@ export default {
     },
     passwordEqual () {
       return this.password === this.passwordAgain || !(this.password !== '' && this.passwordAgain !== '')
+    },
+    registerSuccess () {
+      return this.$store.state.user.login
+    },
+    scorePassword () {
+      var score = 0
+      var letters = {}
+      for (var i = 0; i < this.password.length; i++) {
+        letters[this.password[i]] = (letters[this.password[i]] || 0) + 1
+        score += 5.0 / letters[this.password[i]]
+      }
+      var variations = {
+        digits: /\d/.test(this.password),
+        lower: /[a-z]/.test(this.password),
+        upper: /[A-Z]/.test(this.password),
+        nonWords: /\W/.test(this.password)
+      }
+      var variationCount = 0
+      for (var check in variations) {
+        variationCount += (variations[check] === true) ? 1 : 0
+      }
+      score += (variationCount - 1) * 10
+      return parseInt(score)
     }
   },
   methods: {
@@ -90,6 +132,7 @@ export default {
             this.verificationError === '' &&
             this.username !== '' &&
             this.password !== '' &&
+            this.passwordAgain !== '' &&
             this.verification.length === 6
           ) {
           // 上传用户提交的信息，进行注册操作
@@ -99,6 +142,8 @@ export default {
           this.passwordAgain = ''
           this.activeStep++
         }
+      } else {
+        this.activeStep++
       }
     },
     handlePrev () {
@@ -174,8 +219,11 @@ export default {
     ),
     checkPassword: _.debounce(
       function () {
+        if (this.password.indexOf(' ') > 0) {
+          this.passwordError = '密码不能包含空格哟!'
+        }
         if (this.password.length <= 8) {
-          this.passwordError = '密码强度太弱!请修改'
+          this.passwordError = '密码也太短了!'
         }
       },
       500
@@ -234,10 +282,13 @@ export default {
             'token': res.data['data']['token']
           })
           // 继续第三步的提示信息
+          _this.registerTime = res.data['data']['registerTime']
+          _this.registerIp = res.data['data']['registerIp']
         }
         window.console.log(res.data)
       })
       .catch(function (res) {
+        _this.status = '注册失败(lll￢ω￢)'
         if (res instanceof Error) {
           window.console.log(res.message)
         } else {
@@ -287,14 +338,23 @@ export default {
       .register-step-one
 
       .register-step-two
-        .captcha
-          .captcha-input
-            float left
-            width 200px
-          .captcha-img
-            float left
-            width 100px
-            height 80px
+        .password-score
+          height 10px
+          width 245px
+          border 1px solid #ccc
+          margin-left 55px
+        .password-weak
+          height 8px
+          width 82px
+          background-color red
+        .password-medium
+          height 8px
+          width 165px
+          background-color orange
+        .password-strong
+          height 8px
+          background-color green
+
       .register-step-three
 
       .register-button
