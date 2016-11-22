@@ -27,7 +27,7 @@
             <mu-text-field v-model.trim="email" :errorText="emailError" label="邮箱" hintText="请输入你的邮箱" type="email" fullWidth icon="emial" labelFloat/><br/>
           </div>
           <div v-if="activeStep === 1" class="register-step-two">
-            <mu-text-field v-model.trim="email" label="您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
+            <mu-text-field v-model.trim="email" :errorText="emailError" label="您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
             <mu-text-field v-model.trim="username" :errorText="usernameError" label="用户名" hintText="请输入你的用户名" type="text" fullWidth icon="person" labelFloat/><br/>
             <mu-text-field v-model.trim="password" :errorText="passwordError" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
             <mu-text-field v-model.trim="passwordAgain" :errorText="passwordAgainError" label="确认密码" hintText="请再次输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
@@ -47,8 +47,9 @@
 
 <script>
 import commonApi from '../api/commonApi'
-// import userApi from '../api/userApi'
+import userApi from '../api/userApi'
 import _ from 'lodash'
+import SHA512 from 'crypto-js/sha512'
 export default {
   name: 'register-view',
   data () {
@@ -94,7 +95,8 @@ export default {
           // 清空密码信息
           this.password = ''
           this.passwordAgain = ''
-
+          // 上传用户提交的信息，进行注册操作
+          this.doRegister()
           this.activeStep++
         }
       }
@@ -209,7 +211,39 @@ export default {
       500
     ),
     doRegister () {
-      //
+      var data = {
+        'username': this.username,
+        'email': this.email,
+        'password': SHA512(this.password).toString(),
+        'verification': this.verification
+      }
+      var _this = this
+      userApi.register(data)
+      .then(function (res) {
+        if (res.data['success'] === false) {
+          _this.$store.dispatch('newNotice', {
+            autoClose: true,
+            showTime: 5000,
+            backgroundColor: '#f24f4f',
+            content: res.data['error']
+          })
+        } else {
+          // 注册成功
+          _this.$store.dispatch('doLogin', {
+            'username': res.data['data']['username'],
+            'token': res.data['data']['token']
+          })
+          // 继续第三步的提示信息
+        }
+        window.console.log(res.data)
+      })
+      .catch(function (res) {
+        if (res instanceof Error) {
+          window.console.log(res.message)
+        } else {
+          window.console.log(res.data)
+        }
+      })
     }
   },
   watch: {
