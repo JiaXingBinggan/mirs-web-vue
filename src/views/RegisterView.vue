@@ -30,7 +30,7 @@
             <mu-text-field v-model.trim="email" :errorText="emailError" label="邮箱" hintText="请输入你的邮箱" type="email" fullWidth icon="emial" labelFloat/><br/>
           </div>
           <div v-if="activeStep === 1" class="register-step-two">
-            <mu-text-field v-model.trim="email" :errorText="emailError" label="您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
+            <mu-text-field v-model.trim="email" :errorText="emailError" label="请确认您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
             <mu-text-field v-model.trim="username" :errorText="usernameError" label="用户名" hintText="请输入你的用户名" type="text" fullWidth icon="person" labelFloat/><br/>
             <mu-text-field v-model.trim="password" :errorText="passwordError" label="密码" hintText="请输入密码" type="password" fullWidth icon="lock" labelFloat/><br/>
             <div v-if="password" class="password-score">

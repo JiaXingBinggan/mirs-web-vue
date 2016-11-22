@@ -80,8 +80,6 @@ export default {
           })
           _this.changeCaptcha()
           _this.captcha = ''
-          _this.username = ''
-          _this.password = ''
         } else {
           // 登录成功
           _this.password = ''
