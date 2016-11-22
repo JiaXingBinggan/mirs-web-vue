@@ -20,7 +20,7 @@
       </mu-stepper>
       <div class="register-step-content">
         <p v-if="finished && registerSuccess">
-          都完成啦!<a href="/">点这里</a>去首页逛逛吧
+          都完成啦!<a @click="goToIndexPage">点这里</a>去首页逛逛吧
         </p>
         <p v-if="finished && !registerSuccess">
           诶呀!<a href="/register">点这里</a>重新来过
@@ -125,6 +125,9 @@ export default {
     }
   },
   methods: {
+    goToIndexPage () {
+      this.$router.push('/')
+    },
     handleVerificationOverflow (isOverflow) {
       this.verificationError = isOverflow ? '超过啦！！！！' : ''
     },
