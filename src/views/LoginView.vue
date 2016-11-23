@@ -1,7 +1,7 @@
 <template>
 <div class="login-view">
   <div class="login-panel">
-    <mu-text-field v-model="username" label="用户名" hintText="请输入用户名" :errorText="usernameError" type="text" fullWidth icon="person" labelFloat/><br/>
+    <mu-text-field v-model="username" label="用户名/邮箱" hintText="请输入用户名/邮箱" :errorText="usernameError" type="text" fullWidth icon="person" labelFloat/><br/>
     <mu-text-field v-model="password" label="密码" hintText="请输入密码" :errorText="passwordError" type="password" fullWidth icon="lock" labelFloat/><br/>
     <div class="captcha">
       <div class="captcha-input">

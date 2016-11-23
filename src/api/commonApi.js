@@ -39,5 +39,13 @@ export default {
       withCredentials: true
     }
     )
+  },
+  sendEmail (email) {
+    return axios({
+      method: 'post',
+      url: commonApi.sendEmailUrl(email),
+      withCredentials: true
+    }
+    )
   }
 }

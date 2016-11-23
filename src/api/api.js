@@ -14,7 +14,9 @@ export const commonApi = {
   // POST
   checkUserEmailUrl: userEmail => host + '/inspection/userEmail?email=' + userEmail,
   // POST
-  checkVerificationUrl: verification => host + '/inspection/verification?verification=' + verification
+  checkVerificationUrl: verification => host + '/inspection/verification?verification=' + verification,
+  // POST
+  sendEmailUrl: email => host + '/email?email=' + email
 }
 
 export const userApi = {

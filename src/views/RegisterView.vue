@@ -145,6 +145,19 @@ export default {
       this.sentEmailTimeout = 90
       this.countDown()
       // 向后台请求
+      commonApi.sendEmail(this.email)
+      .then(function (res) {
+        if (res.data['success'] === false) {
+          window.console.log(res.data)
+        }
+      })
+      .catch(function (res) {
+        if (res instanceof Error) {
+          window.console.log(res.message)
+        } else {
+          window.console.log(res.data)
+        }
+      })
     },
     handleVerificationOverflow (isOverflow) {
       this.verificationError = isOverflow ? '超过啦！！！！' : ''
