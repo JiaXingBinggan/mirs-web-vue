@@ -16,6 +16,10 @@ export function timeAgo (time) {
   }
 }
 
+export function toDate (timestamp) {
+  return new Date(parseInt(timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+}
+
 function pluralize (time, label) {
   if (time === 1) {
     return time + label

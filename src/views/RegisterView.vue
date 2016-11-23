@@ -52,7 +52,7 @@
             <div v-if="registerSuccess" class="register-success">
               用户：{{username}}已成功注册 <br/>
               邮箱是：{{email}} <br/>
-              注册时间是: {{registerTime}} <br/>
+              注册时间是: {{registerTime | toDate}} <br/>
               IP地址为: {{registerIp}} <br/>
             </div>
             <div v-if="!registerSuccess" class="register-failed">
