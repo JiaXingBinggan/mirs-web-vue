@@ -300,7 +300,7 @@ export default {
         .then(function (res) {
           if (res.data['success'] === false) {
             window.console.log(res.data)
-            _this.usernameError = res.data['error']
+            _this.verificationError = res.data['error']
           }
         })
         .catch(function (res) {
