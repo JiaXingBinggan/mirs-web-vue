@@ -1,6 +1,6 @@
 const host = process.env.NODE_ENV === 'production'
-? 'http://www.91film.top/api'
-: 'http://www.91film.top/api'
+? 'https://www.91film.top/api'
+: 'https://www.91film.top/api'
 
 export const commonApi = {
   // GET
