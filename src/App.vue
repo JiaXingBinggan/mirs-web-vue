@@ -5,7 +5,7 @@
     :show.sync="show">
     </notification>
     <div class="header">
-      <mu-appbar title="Title">
+      <mu-appbar>
         <div class="inner">
           <router-link to="/" exact>
             <img class="logo" src="./assets/logo.png" alt="logo">
@@ -16,10 +16,10 @@
         </div>
         <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
         <mu-flat-button v-if="!login" @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
-        <mu-avatar class="avatar" v-if="login" @click="toggle()" slot="right" :src="defaultAvatar" :size="45" />
-        <mu-drawer right :open="open" docker="false" width="200"  @close="toggle()">
+        <mu-avatar class="avatar" v-if="login" @click="toggle(true)" slot="right" :src="defaultAvatar" :size="45" />
+        <mu-drawer right :open="open" :docked="docked" width="200"  @close="toggle()">
           <mu-appbar title="个人中心">
-            <mu-icon-button icon='close' slot="left" @click="toggle()"/>
+            <mu-icon-button icon='menu' slot="left" @click="toggle()"/>
           </mu-appbar>
           <mu-list @itemClick="toggle()">
             <mu-list-item title="信息管理">
@@ -43,6 +43,7 @@
             <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
           </mu-list>
         </mu-drawer>
+      </mu-appbar>
     </div>
     <transition name="fade" mode="out-in">
       <router-view class="view"></router-view>
@@ -61,7 +62,8 @@ export default {
   data () {
     return {
       defaultAvatar,
-      open: false
+      open: false,
+      docked: true
     }
   },
   computed: {
@@ -79,8 +81,9 @@ export default {
     goToLoginPage () {
       this.$router.push('/login')
     },
-    toggle () {
+    toggle (flag) {
       this.open = !this.open
+      this.docked = !flag
     }
   }
 }
@@ -89,27 +92,22 @@ export default {
 <style lang="stylus">
 body
   font-family Roboto, Helvetica, sans-serif
-  font-size 15px
   background-color lighten(#eceef1, 30%)
   margin 0
-  padding-top 55px
-  color #34495e
 
 a
   color #34495e
   text-decoration none
 
 .header
-  background-color #ff6600
-  position fixed
   z-index 999
-  max-width 13660px
+  max-width 100%
   height 55px
   top 0
   left 0
   right 0
   .inner
-    max-width 13660px
+    max-width 100%
     box-sizing border-box
     margin 0px auto
     padding 15px 5px
