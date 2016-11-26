@@ -16,29 +16,29 @@
           <router-link to="/album">电影专辑</router-link>
         </div>
         <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
-        <mu-flat-button v-if="!login" @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
-        <mu-avatar class="avatar" v-if="login" @click="toggle(true)" slot="right" :src="defaultAvatar" :size="45" />
+        <mu-flat-button v-if="!login" @click="goTo('/login')" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
+        <mu-avatar class="avatar" v-if="!login" @click="toggle(true)" slot="right" :src="defaultAvatar" :size="45" />
         <mu-drawer right :open="open" :docked="docked" width="200"  @close="toggle()">
           <mu-appbar title="个人中心">
             <mu-icon-button icon='menu' slot="left" @click="toggle()"/>
           </mu-appbar>
           <mu-list @itemClick="toggle()">
-            <mu-list-item title="信息管理">
+            <mu-list-item title="信息管理" @click="goTo('/accounts')">
               <mu-icon slot="left" value="info"/>
             </mu-list-item>
-            <mu-list-item title="社区消息">
+            <mu-list-item title="社区消息" @click="goTo('/login')">
               <mu-icon slot="left" value="star"/>
             </mu-list-item>
-            <mu-list-item title="好友管理">
+            <mu-list-item title="好友管理" @click="goTo('/friends')">
               <mu-icon slot="left" value="group"/>
             </mu-list-item>
-            <mu-list-item title="推荐管理">
+            <mu-list-item title="推荐管理" @click="goTo('/recommendation')">
               <mu-icon slot="left" value="bookmark"/>
             </mu-list-item>
-            <mu-list-item title="我的记录">
+            <mu-list-item title="我的记录" @click="goTo('/history')">
               <mu-icon slot="left" value="history"/>
             </mu-list-item>
-            <mu-list-item title="退出登录">
+            <mu-list-item title="退出登录" @click="logout">
               <mu-icon slot="left" value="input"/>
             </mu-list-item>
             <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
@@ -79,8 +79,12 @@ export default {
     }
   },
   methods: {
-    goToLoginPage () {
-      this.$router.push('/login')
+    goTo (route) {
+      this.$router.push(route)
+    },
+    logout () {
+      this.$store.dispatch('doLogout')
+      this.$router.push('/')
     },
     toggle (flag) {
       this.open = !this.open
