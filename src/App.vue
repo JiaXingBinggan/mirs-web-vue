@@ -26,13 +26,13 @@
             <mu-list-item title="信息管理" @click="goTo('/accounts')">
               <mu-icon slot="left" value="info"/>
             </mu-list-item>
-            <mu-list-item title="社区消息" @click="goTo('/login')">
+            <mu-list-item title="我的消息" @click="goTo('/messages')">
               <mu-icon slot="left" value="star"/>
             </mu-list-item>
             <mu-list-item title="好友管理" @click="goTo('/friends')">
               <mu-icon slot="left" value="group"/>
             </mu-list-item>
-            <mu-list-item title="推荐管理" @click="goTo('/recommendation')">
+            <mu-list-item title="推荐管理" @click="goTo('/recommendations')">
               <mu-icon slot="left" value="bookmark"/>
             </mu-list-item>
             <mu-list-item title="我的记录" @click="goTo('/history')">
