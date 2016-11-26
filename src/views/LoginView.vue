@@ -3,14 +3,7 @@
   <div class="login-panel">
     <mu-text-field v-model="username" label="用户名/邮箱" hintText="请输入用户名/邮箱" :errorText="usernameError" type="text" fullWidth icon="person" labelFloat/><br/>
     <mu-text-field v-model="password" label="密码" hintText="请输入密码" :errorText="passwordError" type="password" fullWidth icon="lock" labelFloat/><br/>
-    <div class="captcha">
-      <div class="captcha-input">
-        <mu-text-field v-model="captcha" label="验证码" hintText="请输入验证码" :errorText="captchaError" @textOverflow="handleInputOverflow" type="text" :maxLength="4" fullWidth icon="sms" labelFloat/><br/>
-      </div>
-      <div class="captcha-img">
-        <img :src="captchaUrl"  @click="changeCaptcha" alt="点击刷新" />
-      </div>
-    </div>
+    <captcha></captcha>
     <div class="button">
       <mu-raised-button @click="register" label="注册" class="register-button"/>
       <mu-raised-button @click="doLogin" label="登录" class="login-button" primary/>
@@ -24,29 +17,21 @@
 </template>
 
 <script>
-import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
 import SHA512 from 'crypto-js/sha512'
+import Captcha from '../components/common/Captcha'
 export default {
   name: 'login-view',
+  components: { Captcha },
   data () {
     return {
       username: '',
       password: '',
-      captcha: '',
       usernameError: '',
-      passwordError: '',
-      captchaError: '',
-      captchaUrl: commonApi.captchaUrl()
+      passwordError: ''
     }
   },
   methods: {
-    changeCaptcha () {
-      this.captchaUrl = commonApi.captchaUrl() + '?' + Math.floor(Math.random() * 100)
-    },
-    handleInputOverflow (isOverflow) {
-      this.captchaError = isOverflow ? '超过啦！！！！' : ''
-    },
     register () {
       this.$router.push('/register')
     },
@@ -57,16 +42,17 @@ export default {
       if (this.password === '') {
         this.passwordError = '请输入密码'
       }
-      if (this.captcha.length !== 4) {
-        this.captchaError = '请输入完整的4位验证码'
+      if (this.$store.state.captcha.captcha.length !== 4) {
+        // this.captchaError = '请输入完整的4位验证码']
+        this.$store.dispatch('setCaptchaError', '请输入4位验证码')
       }
       if (this.usernameError === '' &&
           this.passwordError === '' &&
-          this.captchaError === '') {
+          this.$store.state.captcha.captchaError === '') {
         var data = {
           'username': this.username,
           'password': SHA512(this.password).toString(),
-          'captcha': this.captcha
+          'captcha': this.$store.state.captcha.captcha
         }
         var _this = this
         userApi.login(data)
@@ -78,8 +64,10 @@ export default {
               backgroundColor: '#f24f4f',
               content: res.data['error']
             })
-            _this.changeCaptcha()
-            _this.captcha = ''
+            // 刷新验证码
+            _this.$store.dispatch('changeCaptcha')
+            // 清空验证码
+            _this.$store.dispatch('setCaptcha', '')
           } else {
             // 登录成功
             _this.password = ''
@@ -96,32 +84,6 @@ export default {
           }
         })
       }
-    },
-    validateCaptcha () {
-      // 绑定作用域
-      var _this = this
-      commonApi.checkCaptcha(this.captcha)
-      .then(function (res) {
-        if (res.data['success'] === false) {
-          _this.$store.dispatch('newNotice', {
-            autoClose: true,
-            showTime: 1000,
-            backgroundColor: '#f24f4f',
-            content: res.data['error']
-          })
-          // 自动刷新验证码
-          _this.changeCaptcha()
-          _this.captcha = ''
-        }
-        window.console.log(res.data)
-      })
-      .catch(function (res) {
-        if (res instanceof Error) {
-          window.console.log(res.message)
-        } else {
-          window.console.log(res.data)
-        }
-      })
     }
   },
   watch: {
@@ -130,17 +92,9 @@ export default {
     },
     password () {
       this.passwordError = ''
-    },
-    captcha () {
-      this.captchaError = ''
-      if (this.captcha.length === 4) {
-        window.console.log(this.captcha)
-        this.validateCaptcha()
-      }
     }
   }
 }
-
 </script>
 
 <style lang="stylus" scoped>
@@ -152,14 +106,6 @@ export default {
     width 300px
     height 300px
     margin 0 auto
-    .captcha
-      .captcha-input
-        float left
-        width 200px
-      .captcha-img
-        float left
-        width 100px
-        height 80px
     .button
       width 300px
       margin 0 auto
@@ -167,11 +113,6 @@ export default {
         margin-left 24px
       .login-button
         margin-left 76px
-img
-  width 100px
-  height 50px
-  margin-bottom 0
-  margin-top 10px
 
 
 
