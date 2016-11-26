@@ -91,7 +91,7 @@ export default {
 
 <style lang="stylus">
 body
-  font-family Roboto, Helvetica, sans-serif
+  font-family "Times New Roman", "Microsoft YaHei",
   background-color lighten(#eceef1, 30%)
   margin 0
 
@@ -107,26 +107,23 @@ a
   left 0
   right 0
   .inner
-    max-width 100%
-    box-sizing border-box
-    margin 0px auto
-    padding 15px 5px
-  a
-    color rgba(255, 255, 255, .8)
-    line-height 24px
-    transition color .15s ease
-    display inline-block
-    vertical-align middle
-    font-weight 300
-    letter-spacing .075em
-    margin-right 1.8em
-    &:hover
-      color #fff
-    &.router-link-active
-      color #fff
-      font-weight 400
-    &:nth-child(6)
-      margin-right 0
+    padding-left 100px
+    font-size 16px
+    font-family "Microsoft YaHei"
+    a
+      color rgba(255, 255, 255, .8)
+      line-height 24px
+      transition color .15s ease
+      display inline-block
+      vertical-align middle
+      font-weight 300
+      letter-spacing .075em
+      margin-right 1.8em
+      &:hover
+        color #fff
+      &.router-link-active
+        color #fff
+        font-weight 400
   .avatar
     margin-left 35px
     margin-right 15px
@@ -140,7 +137,7 @@ a
   vertical-align middle
 
 .view
-  max-width 1366px
+  padding 0 100px
   margin 0 auto
   position relative
 
