@@ -16,8 +16,33 @@
         </div>
         <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
         <mu-flat-button v-if="!login" @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
-        <mu-avatar class="avatar" v-if="login" slot="right" :src="myron" :size="45" />
-      </mu-appbar>
+        <mu-avatar class="avatar" v-if="login" @click="toggle()" slot="right" :src="defaultAvatar" :size="45" />
+        <mu-drawer right :open="open" docker="false" width="200"  @close="toggle()">
+          <mu-appbar title="个人中心">
+            <mu-icon-button icon='close' slot="left" @click="toggle()"/>
+          </mu-appbar>
+          <mu-list @itemClick="toggle()">
+            <mu-list-item title="信息管理">
+              <mu-icon slot="left" value="info"/>
+            </mu-list-item>
+            <mu-list-item title="社区消息">
+              <mu-icon slot="left" value="star"/>
+            </mu-list-item>
+            <mu-list-item title="好友管理">
+              <mu-icon slot="left" value="group"/>
+            </mu-list-item>
+            <mu-list-item title="推荐管理">
+              <mu-icon slot="left" value="bookmark"/>
+            </mu-list-item>
+            <mu-list-item title="我的记录">
+              <mu-icon slot="left" value="history"/>
+            </mu-list-item>
+            <mu-list-item title="退出登录">
+              <mu-icon slot="left" value="input"/>
+            </mu-list-item>
+            <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
+          </mu-list>
+        </mu-drawer>
     </div>
     <transition name="fade" mode="out-in">
       <router-view class="view"></router-view>
@@ -26,12 +51,19 @@
 </template>
 
 <script>
+import defaultAvatar from './assets/avatar.png'
 import Notification from './components/common/Notification'
 
 // [].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)})
 
 export default {
   components: { Notification },
+  data () {
+    return {
+      defaultAvatar,
+      open: false
+    }
+  },
   computed: {
     show () {
       return this.$store.state.notification.show
@@ -46,6 +78,9 @@ export default {
   methods: {
     goToLoginPage () {
       this.$router.push('/login')
+    },
+    toggle () {
+      this.open = !this.open
     }
   }
 }
@@ -94,14 +129,11 @@ a
       font-weight 400
     &:nth-child(6)
       margin-right 0
-  .github
-    color #fff
-    font-size .9em
-    margin 0
-    float right
   .avatar
     margin-left 35px
     margin-right 15px
+    img
+      width 135%
 
 .logo
   width 24px
