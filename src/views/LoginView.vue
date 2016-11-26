@@ -23,6 +23,11 @@ import Captcha from '../components/common/Captcha'
 export default {
   name: 'login-view',
   components: { Captcha },
+  beforeCreate () {
+    // 使用验证码组件前，需要先清空组件的状态
+    this.$store.dispatch('setCaptcha', '')
+    this.$store.dispatch('setCaptchaError', '')
+  },
   data () {
     return {
       username: '',
@@ -43,7 +48,6 @@ export default {
         this.passwordError = '请输入密码'
       }
       if (this.$store.state.captcha.captcha.length !== 4) {
-        // this.captchaError = '请输入完整的4位验证码']
         this.$store.dispatch('setCaptchaError', '请输入4位验证码')
       }
       if (this.usernameError === '' &&

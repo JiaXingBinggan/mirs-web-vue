@@ -78,6 +78,11 @@ import Captcha from '../components/common/Captcha'
 export default {
   name: 'register-view',
   components: { Captcha },
+  beforeCreate () {
+    // 使用验证码组件前，需要先清空组件的状态
+    this.$store.dispatch('setCaptcha', '')
+    this.$store.dispatch('setCaptchaError', '')
+  },
   data () {
     return {
       activeStep: 0,
