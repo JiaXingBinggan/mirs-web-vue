@@ -27,7 +27,8 @@
         </p>
         <template v-if="!finished">
           <div v-if="activeStep === 0" class="register-step-one">
-            <mu-text-field v-model.trim="email" :errorText="emailError" label="邮箱" hintText="请输入你的邮箱" type="email" fullWidth icon="emial" labelFloat/><br/>
+            <mu-text-field v-model.trim="email" :errorText="emailError" label="邮箱" hintText="请输入你的邮箱" type="email" fullWidth icon="email" labelFloat/><br/>
+            <captcha></captcha>
           </div>
           <div v-if="activeStep === 1" class="register-step-two">
             <mu-text-field v-model.trim="email" :errorText="emailError" label="请确认您的邮箱" type="email" fullWidth icon="email" labelFloat disabled/><br/>
@@ -73,8 +74,10 @@ import commonApi from '../api/commonApi'
 import userApi from '../api/userApi'
 import _ from 'lodash'
 import SHA512 from 'crypto-js/sha512'
+import Captcha from '../components/common/Captcha'
 export default {
   name: 'register-view',
+  components: { Captcha },
   data () {
     return {
       activeStep: 0,
@@ -167,7 +170,12 @@ export default {
         if (this.email === '') {
           this.emailError = '请先输入邮箱'
         }
-        if (this.emailError === '') {
+        if (this.$store.state.captcha.captcha.length !== 4) {
+          // this.captchaError = '请输入完整的4位验证码']
+          this.$store.dispatch('setCaptchaError', '请输入4位验证码')
+        }
+        if (this.emailError === '' &&
+            this.$store.state.captcha.captchaError === '') {
           this.activeStep++
         }
       } else if (this.activeStep === 1) {
