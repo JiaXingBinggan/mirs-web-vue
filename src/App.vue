@@ -41,7 +41,6 @@
             <mu-list-item title="退出登录" @click="logout">
               <mu-icon slot="left" value="input"/>
             </mu-list-item>
-            <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
           </mu-list>
         </mu-drawer>
       </mu-appbar>
