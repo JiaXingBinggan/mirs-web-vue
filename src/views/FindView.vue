@@ -1,14 +1,14 @@
 <template>
-  <div class="hot-view">
+  <div class="find-view">
     <h1>{{msg}}</h1>
 </template>
 
 <script>
 export default {
-  name: 'hot-view',
+  name: 'find-view',
   data () {
     return {
-      msg: 'This is hot view!'
+      msg: '在这发现电影~'
     }
   }
 }
@@ -16,5 +16,5 @@ export default {
 
 <style lang="stylus" scoped>
 h1
-  background #345
+  background #999
 </style>

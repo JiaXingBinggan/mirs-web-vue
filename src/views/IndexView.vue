@@ -16,7 +16,7 @@ export default {
     notice () {
       this.$store.dispatch('newNotice', {
         autoClose: false,
-        backgroundColor: '#769FCD',
+        backgroundColor: '#cddced',
         content: 'Now you see me!'
       })
     }
@@ -26,5 +26,5 @@ export default {
 
 <style lang="stylus" scoped>
 h1
-  background #111
+  background rgba(110, 86, 117, 0.22)
 </style>

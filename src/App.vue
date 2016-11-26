@@ -11,8 +11,9 @@
             <img class="logo" src="./assets/logo.png" alt="logo">
           </router-link>
           <router-link to="/">首页</router-link>
-          <router-link to="/new">最新电影</router-link>
-          <router-link to="/hot">热门电影</router-link>
+          <router-link to="/find">发现电影</router-link>
+          <router-link to="/box-office">电影票房</router-link>
+          <router-link to="/album">电影专辑</router-link>
         </div>
         <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
         <mu-flat-button v-if="!login" @click="goToLoginPage" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>

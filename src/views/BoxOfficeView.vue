@@ -1,14 +1,14 @@
 <template>
-  <div class="not-found-view">
+  <div class="box-office-view">
     <h1>{{msg}}</h1>
 </template>
 
 <script>
 export default {
-  name: 'not-found-view',
+  name: 'box-office-view',
   data () {
     return {
-      msg: '404 Not Found!'
+      msg: '在这里查看票房!'
     }
   }
 }

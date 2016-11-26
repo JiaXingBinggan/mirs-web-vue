@@ -1,14 +1,14 @@
 <template>
-  <div class="new-view">
+  <div class="album-view">
     <h1>{{msg}}</h1>
 </template>
 
 <script>
 export default {
-  name: 'new-view',
+  name: 'album-view',
   data () {
     return {
-      msg: 'This is new view!'
+      msg: '在这寻找电影专辑~'
     }
   }
 }
@@ -16,5 +16,5 @@ export default {
 
 <style lang="stylus" scoped>
 h1
-  background #573
+  background #999
 </style>
