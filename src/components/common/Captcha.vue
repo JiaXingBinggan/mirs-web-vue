@@ -10,52 +10,36 @@
 </template>
 
 <script>
-import commonApi from '../../api/commonApi'
 export default {
   name: 'captcha',
-  data () {
-    return {
-      captcha: '',
-      captchaUrl: commonApi.captchaUrl()
-    }
-  },
   computed: {
+    captcha: {
+      get () {
+        return this.$store.state.captcha.captcha
+      },
+      set (val) {
+        this.$store.dispatch('setCaptcha', val)
+      }
+    },
     captchaError () {
       return this.$store.state.captcha.captchaError
+    },
+    captchaUrl () {
+      return this.$store.state.captcha.captchaUrl
     }
   },
   methods: {
     changeCaptcha () {
-      this.captchaUrl = commonApi.captchaUrl() + '?' + Math.floor(Math.random() * 100)
-    },
-    validateCaptcha () {
-      // 绑定作用域
-      var _this = this
-      commonApi.checkCaptcha(this.captcha)
-      .then(function (res) {
-        if (res.data['success'] === false) {
-          _this.$store.dispatch('setCaptchaError', '验证码错误!')
-          // 自动刷新验证码
-          _this.changeCaptcha()
-          // _this.captcha = ''
-        }
-        window.console.log(res.data)
-      })
-      .catch(function (res) {
-        if (res instanceof Error) {
-          window.console.log(res.message)
-        } else {
-          window.console.log(res.data)
-        }
-      })
+      this.$store.dispatch('changeCaptcha')
     }
   },
   watch: {
     captcha () {
       this.$store.dispatch('clearCaptchaError')
+      this.$store.dispatch('setCaptcha', this.captcha)
       if (this.captcha.length === 4) {
         window.console.log(this.captcha)
-        this.validateCaptcha()
+        this.$store.dispatch('validateCaptcha')
       }
       if (this.captcha.length > 4) {
         this.$store.dispatch('setCaptchaError', '超过了!!!')
@@ -74,4 +58,9 @@ export default {
     float left
     width 100px
     height 80px
+img
+  width 100px
+  height 50px
+  margin-bottom 0
+  margin-top 10px
 </style>
