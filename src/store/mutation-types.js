@@ -7,3 +7,8 @@ export const CLOSE_NOTICE = 'CLOSE_NOTICE'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 /* user end */
+
+/* captcha start */
+export const SET_CAPTCHA_ERROR = 'SET_CAPTCHA_ERROR'
+export const CLEAR_CAPTCHA_ERROR = 'CLEAR_CAPTCHA_ERROR'
+/* captcha end */

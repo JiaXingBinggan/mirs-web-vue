@@ -6,6 +6,7 @@ import * as getters from './getters'
 import createLogger from 'vuex/dist/logger'
 import notification from './modules/notification'
 import user from './modules/user'
+import captcha from './modules/captcha'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ export default new Vuex.Store({
   getters,
   modules: {
     notification,
-    user
+    user,
+    captcha
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []
