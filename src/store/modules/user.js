@@ -1,23 +1,29 @@
 import * as types from '../mutation-types'
+import Store from '../../utils/store.js'
 
 const state = {
   login: false,
   user: {
     username: '',
     token: ''
-  }
+  },
+  expireTime: ''
 }
 
 const mutations = {
   [types.LOGIN] (state, user) {
-    window.console.log('in notification mutations: LOGIN')
     state.login = true
     state.user = user
+    state.expireTime = new Date().getTime() + 30 * 60 * 1000
+    // 加入储存中
+    Store.save('user', state)
   },
   [types.LOGOUT] (state) {
     window.console.log('in notification mutations: LOGOUT')
     state.login = false
     state.user = {}
+    state.expireTime = ''
+    Store.remove('user')
   }
 }
 

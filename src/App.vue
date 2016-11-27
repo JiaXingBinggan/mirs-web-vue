@@ -57,11 +57,17 @@
 <script>
 import defaultAvatar from './assets/avatar.png'
 import Notification from './components/common/Notification'
-
+import Store from './utils/store.js'
 // [].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)})
 
 export default {
   components: { Notification },
+  beforeCreate () {
+    let user = Store.fetch('user')
+    if (user['expireTime'] > new Date().getTime()) {
+      this.$store.dispatch('doLogin', user['user'])
+    }
+  },
   data () {
     return {
       defaultAvatar,
