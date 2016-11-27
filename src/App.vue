@@ -8,7 +8,7 @@
       <mu-appbar>
         <div class="inner">
           <router-link to="/" exact>
-            <img class="logo" src="./assets/logo.png" alt="logo">
+            <img class="logo" src="./assets/cat.png" alt="logo">
           </router-link>
           <router-link to="/">首页</router-link>
           <router-link to="/find">发现电影</router-link>
