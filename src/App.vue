@@ -15,9 +15,12 @@
           <router-link to="/box-office">电影票房</router-link>
           <router-link to="/album">电影专辑</router-link>
         </div>
-        <mu-text-field icon="search" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
+        <div class="search-bar" @keyup.enter="onSearch" slot="right">
+          <mu-text-field v-model="searchKeywords" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
+        </div>
+        <!-- <mu-text-field v-model="searchKeywords" @keyup.enter="onSearch" class="appbar-search-field"  slot="right" hintText="请输入搜索内容" icon="search"/> -->
         <mu-flat-button v-if="!login" @click="goTo('/login')" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
-        <mu-avatar class="avatar" v-if="!login" @click="toggle(true)" slot="right" :src="defaultAvatar" :size="45" />
+        <mu-avatar class="avatar" v-if="login" @click="toggle(true)" slot="right" :src="defaultAvatar" :size="45" />
         <mu-drawer right :open="open" :docked="docked" width="200"  @close="toggle()">
           <mu-appbar title="个人中心">
             <mu-icon-button icon='menu' slot="left" @click="toggle()"/>
@@ -63,7 +66,8 @@ export default {
     return {
       defaultAvatar,
       open: false,
-      docked: true
+      docked: true,
+      searchKeywords: ''
     }
   },
   computed: {
@@ -84,6 +88,9 @@ export default {
     logout () {
       this.$store.dispatch('doLogout')
       this.$router.push('/')
+    },
+    onSearch () {
+      this.$router.push('/search?keywords=' + this.searchKeywords)
     },
     toggle (flag) {
       this.open = !this.open
@@ -128,6 +135,8 @@ a
       &.router-link-active
         color #fff
         font-weight 400
+  .search-bar
+    width 300px
   .avatar
     margin-left 35px
     margin-right 15px

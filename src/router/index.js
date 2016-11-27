@@ -19,6 +19,7 @@ import FriendsView from '../views/FriendsView.vue'
 import HistoryView from '../views/HistoryView.vue'
 import MessagesView from '../views/MessagesView.vue'
 import RecommendationsView from '../views/RecommendationsView.vue'
+import SearchView from '../views/SearchView.vue'
 
 export default new Router({
   mode: 'history',
@@ -35,6 +36,7 @@ export default new Router({
     { path: '/history', component: HistoryView },
     { path: '/messages', component: MessagesView },
     { path: '/recommendations', component: RecommendationsView },
+    { path: '/search', component: SearchView },
     { path: '/user/:id', component: UserView },
     { path: '/movie/:id', component: MovieView },
     { path: '/*', component: NotFoundView }
