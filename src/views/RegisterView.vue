@@ -82,6 +82,10 @@ export default {
     // 使用验证码组件前，需要先清空组件的状态
     this.$store.dispatch('setCaptcha', '')
     this.$store.dispatch('setCaptchaError', '')
+    // 如果已经登录，则调转到首页
+    if (this.$store.state.user.login) {
+      this.$router.push('/')
+    }
   },
   data () {
     return {
