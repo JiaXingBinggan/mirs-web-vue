@@ -30,7 +30,7 @@ const mutations = {
 // actions
 const actions = {
   setCaptcha ({commit}, captcha) {
-    commit(types.SET_CAPTCHA, captcha)
+    commit(types.SET_CAPTCHA, captcha.toLowerCase())
   },
   clearCaptcha ({commit}) {
     commit(types.CLEAR_CAPTCHA)
