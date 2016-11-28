@@ -6,6 +6,12 @@
 <script>
 export default {
   name: 'friends-view',
+  beforeCreate () {
+    // 如果没有登录，跳转到登录页面
+    if (!this.$store.state.user.login) {
+      this.$router.replace('/login')
+    }
+  },
   data () {
     return {
       msg: '好友管理页面~'
