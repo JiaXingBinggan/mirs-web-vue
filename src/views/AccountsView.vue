@@ -14,7 +14,7 @@ export default {
   },
   data () {
     return {
-      msg: 'This is accounts view!'
+      msg: '用户信息管理'
     }
   }
 }
