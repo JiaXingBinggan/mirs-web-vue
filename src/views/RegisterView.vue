@@ -84,7 +84,8 @@ export default {
     this.$store.dispatch('setCaptchaError', '')
     // 如果已经登录，则调转到首页
     if (this.$store.state.user.login) {
-      this.$router.push('/')
+      // 使用replace，不向浏览器的历史添加记录
+      this.$router.replace('/')
     }
   },
   data () {
