@@ -15,11 +15,12 @@
           <router-link to="/box-office">电影票房</router-link>
           <router-link to="/album">电影专辑</router-link>
         </div>
-        <div class="search-bar" @keyup.enter="onSearch" slot="right">
-          <mu-text-field v-model="searchKeywords" class="appbar-search-field"  slot="right" hintText="请输入搜索内容"/>
+        <div class="search-bar" slot="right">
+          <simple-search></simple-search>
         </div>
         <!-- <mu-text-field v-model="searchKeywords" @keyup.enter="onSearch" class="appbar-search-field"  slot="right" hintText="请输入搜索内容" icon="search"/> -->
-        <mu-flat-button v-if="!login" @click="goTo('/login')" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
+        <mu-flat-button class="login-button" v-if="!login" @click="goTo('/login')" color="white" backgroundColor="blue" label="登录/注册" slot="right"/>
+
         <mu-avatar class="avatar" v-if="login" @click="toggle(true)" slot="right" :src="defaultAvatar" :size="45" />
         <mu-drawer right :open="open" :docked="docked" width="200"  @close="toggle()">
           <mu-appbar title="个人中心">
@@ -57,11 +58,15 @@
 <script>
 import defaultAvatar from './assets/avatar.png'
 import Notification from './components/common/Notification'
+import SimpleSearch from './components/search/SimpleSearch'
 import Store from './utils/store.js'
 // [].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)})
 
 export default {
-  components: { Notification },
+  components: {
+    Notification,
+    SimpleSearch
+  },
   beforeCreate () {
     let user = Store.fetch('user')
     if (user['expireTime'] > new Date().getTime()) {
@@ -72,8 +77,7 @@ export default {
     return {
       defaultAvatar,
       open: false,
-      docked: true,
-      searchKeywords: ''
+      docked: true
     }
   },
   computed: {
@@ -94,9 +98,6 @@ export default {
     logout () {
       this.$store.dispatch('doLogout')
       this.$router.push('/')
-    },
-    onSearch () {
-      this.$router.push('/search?keywords=' + this.searchKeywords)
     },
     toggle (flag) {
       this.open = !this.open
@@ -143,6 +144,7 @@ a
         font-weight 400
   .search-bar
     width 300px
+    margin-right 100px
   .avatar
     margin-left 35px
     margin-right 15px
