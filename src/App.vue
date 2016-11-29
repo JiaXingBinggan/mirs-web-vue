@@ -109,7 +109,7 @@ export default {
 
 <style lang="stylus">
 body
-  font-family "Times New Roman", "Microsoft YaHei",
+  font-family "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif
   background-color lighten(#eceef1, 30%)
   margin 0
 
