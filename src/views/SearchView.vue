@@ -2,11 +2,16 @@
   <div class="search-view">
     <h1>{{msg}}</h1>
     <h1>你搜索了：{{keywords}}</h1>
+    <movie-slider></movie-slider>
 </template>
 
 <script>
+import MovieSlider from '../components/common/MovieSlider'
 export default {
   name: 'search-view',
+  components: {
+    MovieSlider
+  },
   created () {
     this.fetchData()
   },
