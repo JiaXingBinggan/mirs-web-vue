@@ -92,4 +92,34 @@ index.html
   + [ ] 404页
 
 ## 贡献代码
-  > 参考[Folk + Pull模式](http://www.worldhello.net/gotgithub/04-work-with-others/010-fork-and-pull.html)
+  1. fork 本仓库
+  2. 为你的fork仓库创建一个本地克隆
+    + 定位到你fork的mirs-web-vue仓库
+    + 在你 fork 的仓库页面的右侧边栏，点击复制图标复制你 fork 的 URL
+    + 在本地打开终端或命名提示符，输入 ```git clone URL```
+  3. 配置git，使其能与源仓库同步
+    + 在本仓库页面复制这个仓库的URL
+    + 定位到你本地克隆的仓库，使用 ```git remote -v```，可以看到fork当前配置的仓库，如下所示：
+      ``` bash
+        $ git remote -v
+        origin  https://github.com/YOUR_USERNAME/mirs-web-vue.git (fetch)
+        origin  https://github.com/YOUR_USERNAME/mirs-web-vue.git (push)
+      ```
+    + 输入 ```git remote add upstream```，然后粘贴刚才复制的URL，如下所示：
+      ```
+        git remote add upstream https://github.com/firery/mirs-web-vue.git
+      ```
+    + 再次输入``` git remote -v  ```。你将会看到你 fork 的 URL 作为原始的地址，而原始的仓库的 URL 作为 upstream。
+      ```
+        $ git remote -v
+        origin    https://github.com/YOUR_USERNAME/mirs-web-vue.git (fetch)
+        origin    https://github.com/YOUR_USERNAME/mirs-web-vue.git (push)
+        upstream  https://github.com/firery/mirs-web-vue.git (fetch)
+        upstream  https://github.com/firery/mirs-web-vue.git (push)
+      ```
+  4. 贡献代码，并commit
+  5. 同步原始库：```git fetch upstream```
+  6. 如果不在本地的master分支，使用```git checkout master```进行切换
+  7. 将源仓库的更新合并到本地的master分支：```git merge upstream/master```
+  8. 将本地仓库的更新提交到github:```git push```
+  9. 在github上确认信息后，就可以提交pull request了
