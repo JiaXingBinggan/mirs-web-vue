@@ -1,6 +1,6 @@
 <template>
   <div class="similar-users">
-    {{msg}}
+    <h3>{{msg}}</h3>
   </div>
 </template>
 
@@ -20,5 +20,4 @@ export default {
 .similar-users
   background rgb(198, 171, 212)
   height 300px
-
 </style>
