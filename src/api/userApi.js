@@ -19,5 +19,40 @@ export default {
       withCredentials: true
     }
     )
+  },
+  getProfile () {
+    return axios({
+      method: 'get',
+      url: userApi.getProfileUrl(),
+      withCredentials: true
+    }
+    )
+  },
+  updateProfile (user) {
+    return axios({
+      method: 'post',
+      url: userApi.updateProfileUrl(),
+      data: user,
+      withCredentials: true
+    }
+    )
+  },
+  updatePassword (oldPassword, newPassword) {
+    let url = userApi.updatePasswordUrl() + '?oldPassword=' + oldPassword + '&newPassword=' + newPassword
+    return axios({
+      method: 'post',
+      url: url,
+      withCredentials: true
+    }
+    )
+  },
+  resetPassword (password, verification) {
+    let url = userApi.resetPasswordUrl() + '?password=' + password + '&verification=' + verification
+    return axios({
+      method: 'post',
+      url: url,
+      withCredentials: true
+    }
+    )
   }
 }
