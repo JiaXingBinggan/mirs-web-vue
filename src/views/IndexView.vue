@@ -1,6 +1,6 @@
 <template>
   <div class="index-view">
-    <h1 @click='notice()'>{{msg}}</h1>
+    <!-- <h1 @click='notice()'>{{msg}}</h1> -->
     <div class="wrapper">
       <today-movies></today-movies>
     </div>
@@ -38,15 +38,6 @@ export default {
     login () {
       return this.$store.state.user.login
     }
-  },
-  methods: {
-    notice () {
-      this.$store.dispatch('newNotice', {
-        autoClose: false,
-        backgroundColor: '#cddced',
-        content: 'Now you see me!'
-      })
-    }
   }
 }
 </script>
@@ -56,4 +47,5 @@ h1
   background rgba(110, 86, 117, 0.22)
 .wrapper
   margin 20px auto
+  width 1280px
 </style>

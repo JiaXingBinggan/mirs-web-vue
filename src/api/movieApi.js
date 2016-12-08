@@ -2,7 +2,7 @@ import { movieApi } from './api'
 import axios from 'axios'
 
 export default {
-  getDailyMovie (data) {
+  getDailyMovie () {
     return axios({
       method: 'get',
       url: movieApi.dailyMovieUrl(),
