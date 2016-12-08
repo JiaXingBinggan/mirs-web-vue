@@ -4,8 +4,13 @@ import Store from '../../utils/store.js'
 const state = {
   login: false,
   user: {
+    id: '',
     username: '',
-    token: ''
+    email: '',
+    bio: '',
+    location: '',
+    university: '',
+    major: ''
   },
   expireTime: ''
 }
