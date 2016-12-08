@@ -21,9 +21,9 @@ export const commonApi = {
 
 export const userApi = {
   // POST
-  loginUrl: () => host + '/authorization/token',
+  loginUrl: () => host + '/authentication/token',
   // POST
-  registerUrl: () => host + '/authorization/account',
+  registerUrl: () => host + '/authentication/account',
   // GET
   getProfileUrl: () => host + '/accounts/profile',
   // POST
@@ -38,5 +38,7 @@ export const movieApi = {
   // GET
   dailyMovieUrl: () => host + '/movies/today',
   // GET
-  searchMovieUrl: () => host + '/searches/movies'
+  searchMovieUrl: () => host + '/searches/movies',
+  // GET
+  movieUrl: id => host + '/movies/' + id
 }
