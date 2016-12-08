@@ -19,5 +19,14 @@ export default {
       withCredentials: true
     }
     )
+  },
+  getMovieByMovieId (id) {
+    let url = movieApi.movieUrl(id)
+    return axios({
+      method: 'get',
+      url: url,
+      withCredentials: true
+    }
+    )
   }
 }

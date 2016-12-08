@@ -53,8 +53,6 @@
             <div v-if="registerSuccess" class="register-success">
               用户：{{username}}已成功注册 <br/>
               邮箱是：{{email}} <br/>
-              注册时间是: {{registerTime | toDate}} <br/>
-              IP地址为: {{registerIp}} <br/>
             </div>
             <div v-if="!registerSuccess" class="register-failed">
               ┗|｀O′|┛ 嗷~~应该是某种神秘力量让注册失败了!
@@ -99,8 +97,6 @@ export default {
       password: '',
       passwordAgain: '',
       verification: '',
-      registerTime: '',
-      registerIp: '',
       emailError: '',
       usernameError: '',
       passwordError: '',
@@ -350,13 +346,7 @@ export default {
           })
         } else {
           // 注册成功
-          _this.$store.dispatch('doLogin', {
-            'username': res.data['data']['username'],
-            'token': res.data['data']['token']
-          })
-          // 继续第三步的提示信息
-          _this.registerTime = res.data['data']['registerTime']
-          _this.registerIp = res.data['data']['registerIp']
+          _this.$store.dispatch('doLogin', res.data['data'])
         }
         window.console.log(res.data)
       })
