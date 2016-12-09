@@ -12,7 +12,7 @@
     <span class="errorStyle" v-if="confirmedPassword !== ''">{{passwordConfirmError}}</span>
     <br><br><br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" class="input-button" :disabled="passwordError !== '' || passwordConfirmError !== '' || oldPasswordError !== '' || oldPassword === '' || newPassword === '' || confirmedPassword === ''" @click="submit()" value="保存">
+    <input type="button" class="input-button changePassword" :disabled="passwordError !== '' || passwordConfirmError !== '' || oldPasswordError !== '' || oldPassword === '' || newPassword === '' || confirmedPassword === ''" @click="submit()" value="保 存">
   </div>
 </template>
 
@@ -111,10 +111,24 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-#form
-  height 600px
-  .errorStyle
-    color #ff4949
-    font-size 0.8em
+<style lang="stylus" scroped>
+.accounts-view
+  #form
+    height 600px
+    padding-left 20px
+    .errorStyle
+      color #ff4949
+      font-size 0.8em
+    .input-line, .input-text
+      width 360px
+      margin-top 6px
+      padding 6px 8px
+      border 1px solid #ddd
+      border-radius 3px
+      background-color #fafafa
+      box-shadow inset 0 1px 2px rgba(0, 0, 0, 0.075)
+    .changePassword
+      &:disabled
+        color #aaa
+        border 1px solid #e9e9e9
 </style>

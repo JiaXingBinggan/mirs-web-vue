@@ -31,8 +31,6 @@ export default {
       this.$router.replace('/login')
     }
   },
-  created () {
-  },
   data () {
     return {
       titleId: {},
@@ -51,10 +49,10 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .accounts-view
   width 980px
-  margin-top 50px
+  margin-top 80px
   margin-left auto
   margin-right auto
   padding 0
@@ -78,7 +76,13 @@ export default {
       color #111
   .input-button
     border-radius 3px
-    width 80px
+    width 102px
+    height 32px
     background-color #eee
-    border 1px solid #ddd
+    border 1px solid #e9e9e9
+    font-size 14px
+    box-shadow 0px 1px 1px rgba(0, 0, 0, 0.3)
+    cursor pointer
+    &:hover
+      border 1px solid #d1d1d1
 </style>

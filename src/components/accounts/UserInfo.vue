@@ -3,7 +3,7 @@
     <div class="face-area">
       <h3>你的帅脸</h3>
       <img class="face" height="200" width="200" src="https://avatars0.githubusercontent.com/u/17798805?v=3&u=a85ecf41aa0ef94009bfd4dcea7f3208069dcf16&s=400">
-      <input type="button" class="upload-face input-button" value="爆照">
+      <input type="button" class="upload-face input-button" value="爆    照">
     </div>
     <h3>你的信息</h3>
     <span>用户名</span><br><input class="input-line" v-model="user.username">
@@ -23,8 +23,8 @@
     <br><br>
     <span>座右铭</span><br><textarea class="input-text" v-model="user.bio"></textarea>
     <br><br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" class="input-button" @click="submit()" value="保存">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" class="input-button" @click="submit()" value="保 存">
   </div>
 </template>
 
@@ -70,39 +70,30 @@ export default {
       })
     }
   }
-  // watch: {
-  //   user: {
-  //     handler: function (val, oldVal) {
-  //
-  //     },
-  //     deep: true
-  //   }
-  // }
 }
 </script>
 
-<style lang="stylus" scroped>
-#form
-  margin-left auto
-  margin-right auto
-  padding-left 20px
-  .input-line, .input-text
-    width 360px
-    margin-top 6px
-    padding 6px 8px
-    border 1px solid #ddd
-    border-radius 3px
-    background-color #fafafa
-    box-shadow inset 0 1px 2px rgba(0, 0, 0, 0.075)
-  .input-text
-    height 90px
-  .face-area
-    float right
-    margin-right 40px
-    img
-      display block
-      margin-bottom 20px
-      border-radius 6px
-    .upload-face
-      width 100%
+<style lang="stylus" scoped>
+.accounts-view
+  #form
+    padding-left 20px
+    .input-line, .input-text
+      width 360px
+      margin-top 6px
+      padding 6px 8px
+      border 1px solid #ddd
+      border-radius 3px
+      background-color #fafafa
+      box-shadow inset 0 1px 2px rgba(0, 0, 0, 0.075)
+    .input-text
+      height 90px
+    .face-area
+      float right
+      margin-right 40px
+      img
+        display block
+        margin-bottom 20px
+        border-radius 6px
+      .upload-face
+        width 100%
 </style>
