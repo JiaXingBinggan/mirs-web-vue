@@ -20,6 +20,14 @@ export function toDate (timestamp) {
   return new Date(parseInt(timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
 }
 
+export function addHttp (url) {
+  return 'http://' + url
+}
+
+export function addIMDbLink (url) {
+  return 'http://www.imdb.com/title/' + url
+}
+
 function pluralize (time, label) {
   if (time === 1) {
     return time + label
