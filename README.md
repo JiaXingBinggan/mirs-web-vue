@@ -1,6 +1,6 @@
 ## 项目说明
 
-> 电影智能推荐系统前端的Vue实现，Demo[地址](https://www.91film.top/)
+> 电影智能推荐系统([后端地址](https://github.com/firery/mirs))前端的Vue实现，Demo[地址](https://www.91film.top/)
 
 ## 构建步骤
 
@@ -100,19 +100,19 @@ index.html
   3. 配置git，使其能与源仓库同步
     + 在本仓库页面复制这个仓库的URL
     + 定位到你本地克隆的仓库，使用 ```git remote -v```，可以看到fork当前配置的仓库，如下所示：
-    
+
       ``` bash
         $ git remote -v
         origin  https://github.com/YOUR_USERNAME/mirs-web-vue.git (fetch)
         origin  https://github.com/YOUR_USERNAME/mirs-web-vue.git (push)
       ```
     + 输入 ```git remote add upstream```，然后粘贴刚才复制的URL，如下所示：
-    
+
       ```
         git remote add upstream https://github.com/firery/mirs-web-vue.git
       ```
     + 再次输入``` git remote -v  ```。你将会看到你 fork 的 URL 作为原始的地址，而原始的仓库的 URL 作为 upstream。
-    
+
       ```
         $ git remote -v
         origin    https://github.com/YOUR_USERNAME/mirs-web-vue.git (fetch)
