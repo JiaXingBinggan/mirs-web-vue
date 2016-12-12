@@ -23,7 +23,24 @@
       <mu-list>
         <template v-for="movie in movies">
           <div class="movie-detail" @click="goToMovie(movie.id)">
-            {{movie.name}}
+            <div class="movie-img">
+              <img :src="movie.coverLink" alt="" slot="left" >
+            </div>
+            <div class="movie-content" slot="right">
+                <span>电影名：{{movie.name}}</span>
+                <span>导演：{{movie.directors}}</span>
+                <span>主编：{{movie.screenwriters}}</span>
+                <span>演员：{{movie.actors}}</span>
+                <span>类型：{{movie.types}}</span>
+                <span>发行年份：{{movie.releaseYear}}</span>
+                <div >
+                  <span>豆瓣评分：{{movie.doubanRating}}</span>
+                  <br>
+                  <span>IMDB评分：{{movie.imdbRating}}</span>
+                </div>
+                <div>简介：{{movie.synopsis}}</div>
+
+            </div>
           </div>
           <mu-divider/>
         </template>
@@ -145,5 +162,13 @@ export default {
   width 115px
 .load-more-button
   width 100%
-
+.movie-img
+  float left
+  width 200px
+  height 200px
+  img
+    width 120px
+.movie-content
+  float left
+  width 930px
 </style>
