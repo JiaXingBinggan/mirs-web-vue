@@ -47,5 +47,5 @@ h1
   background rgba(110, 86, 117, 0.22)
 .wrapper
   margin 20px auto
-  width 1280px
+  width 1166x
 </style>
