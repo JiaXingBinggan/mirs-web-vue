@@ -29,9 +29,9 @@ export const userApi = {
   // POST
   updateProfileUrl: () => host + '/accounts/profile',
   // POST
-  updatePasswordUrl: () => host + '/password',
+  updatePasswordUrl: () => host + '/accounts/password',
   // POST
-  resetPasswordUrl: () => host + '/reset-password'
+  resetPasswordUrl: () => host + '/accounts/reset-password'
 }
 
 export const movieApi = {
