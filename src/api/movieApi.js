@@ -10,9 +10,18 @@ export default {
     }
     )
   },
-  searchMovie (keyword, limit = 6) {
+  getSuggestionMovie (keyword, limit = 6) {
     // TODO 使用方法构造querystring,暂时手工书写
-    let url = movieApi.searchMovieUrl() + '?keyword=' + keyword + '&limit=' + limit
+    let url = movieApi.suggestionMovieUrl() + '?keyword=' + keyword + '&limit=' + limit
+    return axios({
+      method: 'get',
+      url: url,
+      withCredentials: true
+    }
+    )
+  },
+  searchMovie (keywords, type, sort, limit = 10, offset = 0) {
+    let url = movieApi.searchMovieUrl() + '?keywords=' + keywords + '&type=' + type + '&sort' + sort + '&limit=' + limit + '&offset' + offset
     return axios({
       method: 'get',
       url: url,
