@@ -59,7 +59,7 @@ export default {
   watch: {
     searchKeywords () {
       // 当用户输入发生变化时，向后台请求数据
-      this.searchMovie()
+      this.getSuggestionMovie()
     }
   }
 }
