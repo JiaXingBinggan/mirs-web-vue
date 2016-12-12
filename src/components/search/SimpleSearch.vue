@@ -35,10 +35,10 @@ export default {
     changeMouseStatus (isOver) {
       this.isMouseOver = isOver
     },
-    searchMovie: _.debounce(
+    getSuggestionMovie: _.debounce(
       function () {
         let _this = this
-        movieApi.searchMovie(this.searchKeywords)
+        movieApi.getSuggestionMovie(this.searchKeywords)
         .then(function (res) {
           if (res.data) {
             _this.suggestions = res.data
@@ -59,7 +59,7 @@ export default {
   watch: {
     searchKeywords () {
       // 当用户输入发生变化时，向后台请求数据
-      this.searchMovie()
+      this.getSuggestionMovie()
     }
   }
 }

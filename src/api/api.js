@@ -40,5 +40,7 @@ export const movieApi = {
   // GET
   searchMovieUrl: () => host + '/searches/movies',
   // GET
+  suggestionMovieUrl: () => host + '/searches/suggestions',
+  // GET
   movieUrl: id => host + '/movies/' + id
 }
