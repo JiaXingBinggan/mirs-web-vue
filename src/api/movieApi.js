@@ -21,7 +21,7 @@ export default {
     )
   },
   searchMovie (keywords, type, sort, limit = 10, offset = 0) {
-    let url = movieApi.searchMovieUrl() + '?keywords=' + keywords + '&type=' + type + '&sort' + sort + '&limit=' + limit + '&offset' + offset
+    let url = movieApi.searchMovieUrl() + '?keywords=' + keywords + '&type=' + type + '&sort=' + sort + '&limit=' + limit + '&offset=' + offset
     return axios({
       method: 'get',
       url: url,
