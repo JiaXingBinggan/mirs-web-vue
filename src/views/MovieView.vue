@@ -49,7 +49,7 @@
               <br>
               <span>
                 <span class="pl">上映日期：</span>
-                <span>{{movie.release_date}}</span>
+                <span>{{movie.releaseDate}}</span>
               </span>
               <br>
               <span>
@@ -64,12 +64,14 @@
               <br>
               <span>
                 <span class="pl">官方网站：</span>
-                <a :href="movie.officialWebsite | addHttp">{{movie.officialWebsite}}</a>
+                <!-- <a :href="movie.officialWebsite | addHttp">{{movie.officialWebsite}}</a> -->
+                <a :href="movie.officialWebsite">{{movie.officialWebsite}}</a>
               </span>
               <br>
               <span>
                 <span class="pl">IMDb链接：</span>
-                <a :href="movie.imdb_link | addIMDbLink">{{movie.imdb_link}}</a>
+                <a :href="movie.imdbLink">{{movie.imdbLink}}</a>
+                <!-- <a :href="movie.imdb_link | addIMDbLink">{{movie.imdb_link}}</a> -->
               </span>
               <br>
               <span>
@@ -177,10 +179,10 @@
         )
         </h2>
         <ul>
-          <li v-for="stillPhoto in movie.stillsPhotosLinks">
-            <!-- <a href="https://movie.douban.com/photos/photo/2293569209/"> -->
+          <!-- <li v-for="stillPhoto in movie.stillsPhotosLinks">
+            <a href="https://movie.douban.com/photos/photo/2293569209/">
             <img :src="stillPhoto">
-          </li>
+          </li> -->
         </ul>
         <br><br><br><br><br><br>
         <br>
@@ -479,9 +481,9 @@ export default {
     //   xhr.responseType = 'blob'
     //   xhr.setRequestHeader('Referer', referUrl)
     //   xhr.onload = function () {
-    //     if (this.status == 200) {
+    //     if (this.status === 200) {
     //       var blob = this.response
-    //       var img = document.createElement("img");
+    //       var img = document.createElement('img')
     //       img.onload = function (e) {
     //         window.URL.revokeObjectURL(img.src)
     //       }
