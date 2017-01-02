@@ -1,11 +1,11 @@
 <template>
   <div id="form">
     <div class="face-area">
-      <h3>你的帅脸</h3>
+      <h3>我的帅脸</h3>
       <img class="face" height="200" width="200" src="https://avatars0.githubusercontent.com/u/17798805?v=3&u=a85ecf41aa0ef94009bfd4dcea7f3208069dcf16&s=400">
       <input type="button" class="upload-face input-button" value="爆    照">
     </div>
-    <h3>你的信息</h3>
+    <h3>我的信息</h3>
     <span>用户名</span><br><input class="input-line" v-model="user.username">
     <br><br>
     <!-- <input type="radio" name="radio" id="male" value="male" v-model="user.sex">

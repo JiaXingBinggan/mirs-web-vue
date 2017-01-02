@@ -1,6 +1,17 @@
 <template>
-  <div class="friends-view">
-    <h1>{{msg}}</h1>
+  <div class="friends-view personal-center">
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <div class="menu">
+          <h2>好友管理</h2>
+          <router-link class="menu-item" to="/friends/friends-lists">好友列表</router-link>
+        </div>
+      </el-col>
+      <el-col :span="18">
+        <router-view name="friendsView"></router-view>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -11,16 +22,7 @@ export default {
     if (!this.$store.state.user.login) {
       this.$router.replace('/login')
     }
-  },
-  data () {
-    return {
-      msg: '好友管理页面~'
-    }
+    this.$router.replace('/friends/friends-lists')
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-h1
-  background #999
-</style>

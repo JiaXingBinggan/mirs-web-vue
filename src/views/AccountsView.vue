@@ -4,7 +4,7 @@
       <el-col :span="6">
         <div class="menu">
           <h2>信息设置</h2>
-          <router-link class="menu-item" to="/accounts/user-info">你的信息</router-link>
+          <router-link class="menu-item" to="/accounts/user-info">我的信息</router-link>
           <router-link class="menu-item" to="/accounts/user-password">更改密码</router-link>
         </div>
       </el-col>
