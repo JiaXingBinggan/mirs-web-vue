@@ -67,11 +67,9 @@ export default {
         userApi.login(data)
         .then(function (res) {
           if (res.data['success'] === false) {
-            _this.$store.dispatch('newNotice', {
-              autoClose: true,
-              showTime: 1000,
-              backgroundColor: '#f24f4f',
-              content: res.data['error']
+            _this.$message({
+              message: res.data['error'],
+              type: 'error'
             })
             // 刷新验证码
             _this.$store.dispatch('changeCaptcha')
