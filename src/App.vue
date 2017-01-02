@@ -12,8 +12,8 @@
           </router-link>
           <router-link to="/">首页</router-link>
           <router-link to="/find">发现电影</router-link>
-          <router-link to="/box-office">电影票房</router-link>
-          <router-link to="/album">电影专辑</router-link>
+          <!-- <router-link to="/box-office">电影票房</router-link>
+          <router-link to="/album">电影专辑</router-link> -->
         </div>
         <div class="search-bar" slot="right">
           <simple-search></simple-search>
