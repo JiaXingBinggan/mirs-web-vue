@@ -1,6 +1,18 @@
 <template>
-  <div class="recommendations-view">
-    <h1>{{msg}}</h1>
+  <div class="recommendations-view personal-center">
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <div class="menu">
+          <h2>推荐管理</h2>
+          <router-link class="menu-item" to="/recommendations/settings">推荐设置</router-link>
+          <router-link class="menu-item" to="/recommendations/questionnaire">调查问卷</router-link>
+        </div>
+      </el-col>
+      <el-col :span="18">
+        <router-view name="recommendationsView"></router-view>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -11,16 +23,7 @@ export default {
     if (!this.$store.state.user.login) {
       this.$router.replace('/login')
     }
-  },
-  data () {
-    return {
-      msg: '推荐管理页面~'
-    }
+    this.$router.replace('/recommendations/settings')
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-h1
-  background #999
-</style>

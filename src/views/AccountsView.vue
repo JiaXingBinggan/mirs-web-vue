@@ -1,6 +1,18 @@
 <template>
-  <div class="accounts-view">
-    <h1>{{msg}}</h1>
+  <div class="accounts-view personal-center">
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <div class="menu">
+          <h2>信息设置</h2>
+          <router-link class="menu-item" to="/accounts/user-info">我的信息</router-link>
+          <router-link class="menu-item" to="/accounts/user-password">更改密码</router-link>
+        </div>
+      </el-col>
+      <el-col :span="18">
+        <router-view name="accountsView"></router-view>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -11,16 +23,7 @@ export default {
     if (!this.$store.state.user.login) {
       this.$router.replace('/login')
     }
-  },
-  data () {
-    return {
-      msg: '用户信息管理'
-    }
+    this.$router.replace('/accounts/user-info')
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-h1
-  background #543
-</style>

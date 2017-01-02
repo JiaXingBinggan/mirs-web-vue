@@ -5,105 +5,105 @@
       <div id="header">
         <section id="header-left">
           <h1>
-            <span id="name" v-text="movie.movie_name"></span>
+            <span id="name" v-text="movie.name"></span>
             <span id="year" v-text="movie.movie_year"></span>
           </h1>
           <div class="article">
             <div id="cover">
               <a class="nbgnbg">
-                <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2395733377.jpg">
+                <img :src="movie.coverLink">
               </a>
             </div>
             <div id="info">
-              <span>
+              <span v-show="movie.directors">
                 <span class="pl">导演：</span>
                 <span class="attrs">{{movie.directors}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.screenwriters">
                 <span class="pl">编剧：</span>
                 <span class="attrs">{{movie.screenwriters}}</span>
+                <br>
               </span>
-              <br>
-              <span class="actor">
+              <span class="actor" v-show="movie.actors">
                 <span class="pl">主演：</span>
                 <span class="attrs">
                 <span>{{movie.actors}}</span>
                 </span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.types">
                 <span class="pl">类型：</span>
                 <span class="attrs">{{movie.types}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.originPlace">
                 <span class="pl">制片国家/地区：</span>
-                {{movie.origin_place}}
+                {{movie.originPlace}}
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.languages">
                 <span class="pl">语言：</span>
                 {{movie.languages}}
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.releaseDate">
                 <span class="pl">上映日期：</span>
-                <span>{{movie.release_date}}</span>
+                <span>{{movie.releaseDate}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.runtime">
                 <span class="pl">片长：</span>
                 <span>{{movie.runtime}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.anotherNames">
                 <span class="pl">又名：</span>
-                <span>{{movie.another_names}}</span>
+                <span>{{movie.anotherNames}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.officialWebsite">
                 <span class="pl">官方网站：</span>
-                <a :href="movie.official_website | addHttp">{{movie.official_website}}</a>
+                <a :href="movie.officialWebsite | addHttp" >{{movie.officialWebsite}}</a>
+                <!-- <a :href="movie.officialWebsite">{{movie.officialWebsite}}</a> -->
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.imdb_link">
                 <span class="pl">IMDb链接：</span>
                 <a :href="movie.imdb_link | addIMDbLink">{{movie.imdb_link}}</a>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="doubanRating">
                 <div id="ratingPlace">
                   <span class="pl" id="ratingLeft">豆瓣评分：</span>
                   <el-rate :max=10 v-model="doubanRating" id="ratingRight"  disabled show-text text-color="#ff9900" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                 </el-rate>
                 </div>
                 </el-rate>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="imdbRating">
                 <div id="ratingPlace">
                   <span class="pl" id="ratingLeft">IMDb评分：</span>
                   <el-rate :max=10 v-model="imdbRating" id="ratingRight" disabled show-text text-color="#ff9900" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                   </el-rate>
                 </div>
-
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="imdbRating">
                 <div id="ratingPlace">
                   <span class="pl" id="ratingLeft">本站评星：</span>
                   <el-rate :max=5 v-model="imdbRating" id="ratingRight" disabled  text-color="#ff9900" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                   </el-rate>
                 </div>
+                <br>
               </span>
-              <br>
             </div>
         </section>
         <section id="header-right">
           <div id="short-comment">
               <h2>
-                {{movie.movie_name}}的短评· · · · · ·
+                {{movie.name}}的短评· · · · · ·
               </h2>
               <div>
                <el-popover
@@ -165,62 +165,36 @@
       </div>
       <section id="synopsis" class="section-same">
         <!-- 剧情简介 -->
-      <h2>{{movie.movie_name}}的剧情简介  ·  ·  ·  ·  ·  ·</h2>
+      <h2>{{movie.name}}的剧情简介  ·  ·  ·  ·  ·  ·</h2>
       <div id="synopsis-content">
             　　{{movie.synopsis}}
       </div>
       </section>
       <section id="photo" class="section-same">
         <h2>
-          {{movie.movie_name}}的图片 · · · · · ·(
+          {{movie.name}}的图片 · · · · · ·(
         <a href="https://movie.douban.com/photos/photo/2293569209/">全部</a>
         )
         </h2>
         <ul>
-          <li>
+          <!-- <li v-for="stillPhoto in movie.stillsPhotosLinks">
             <a href="https://movie.douban.com/photos/photo/2293569209/">
-            <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-            </a>
-          </li>
-          <li>
-            <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-          </li>
-          <li>
-            <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-          </li>
-          <li>
-            <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-          </li>
-          <li>
-            <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2221319641.jpg">
-          </li>
-          <li>
-            <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2221319641.jpg">
-          </li>
+            <img :src="stillPhoto">
+          </li> -->
         </ul>
         <br><br><br><br><br><br>
         <br>
       </section>
       <section id="award" class="section-same">
         <h2>
-          {{movie.movie_name}}的获奖情况 · · · · · ·(
-        <a href="https://movie.douban.com/photos/photo/2293569209/">全部</a>
-        )
+          {{movie.name}}的获奖情况 · · · · · ·
         </h2>
-        <ul>
-          <li v-for="award in movie.awards ">
-            {{ award}}
-          </li>
-          <li>
-            第44届动画安妮奖 最佳导演(提名) 新海诚
-          </li>
-          <li>
-            第第44届动画安妮奖 最佳独立动画长片(提名)
-          </li>
-          <li>
-            第42届洛杉矶影评人协会奖 最佳动画片
-          </li>
-        </ul>
+        <div v-if="movie.awards">
+          {{movie.awards}}
+        </div>
+        <div v-else>
+          暂无
+        </div>
       </section>
       <section id="also-like-movie" class="section-same">
         <h2>喜欢这部电影的人也喜欢 · · · · · ·</h2>
@@ -327,16 +301,17 @@
           </dl>
         </div>
       </section>
+      <div id="imgTest"></div>
     </div>
   </div>
 </template>
 
 <script>
-// import movieApi from '../../api/movieApi'
+import movieApi from '../api/movieApi'
 export default {
   name: 'movie-view',
   created () {
-    this.getCurrentComment(1)
+    this.get_one_movie()
   },
   data () {
     return {
@@ -351,28 +326,91 @@ export default {
       currentComments: [],
       sizePerOnePage: 5,
       movie: {
-        movie_name: '你的名字。 君の名は。',
-        movie_year: '2016',
-        directors: '新海诚',
-        screenwriters: '新海诚',
-        actors: '上白石萌音/神木隆之介/成田凌/上白石萌音/神木隆之介/成田凌/上白石萌音/神木隆之介/成田凌',
-        types: ' 动作 / 惊悚 / 犯罪',
-        official_website: 'www.kiminona.com',
-        origin_place: '日本',
-        languages: '日语',
-        release_date: '2016-12-02(中国大陆)/2016-08-26(日本)',
-        douban_rating: '10',
-        imdb_rating: '1.2',
-        runtime: '106分钟',
-        another_names: '你的名字 / 君之名 / Your Name',
-        imdb_link: 'tt5311514',
-        synopsis: '千年后再度回归的彗星造访地球的一个月前，日本深山的某个乡下小镇。女年后再度回归的彗星造访地球的一个月前，日本深山的某个乡下小镇。女高中生三叶（上白石萌音 配音）每天都过着忧郁的生活，而她烦恼的不光有担任镇长的父亲所举行的选举运动，还有家传神社的古老习俗。三叶身居这小镇之中，又处于过多在意周围人目光的年龄，因此对大都市的憧憬日益强烈。年后再度回归的彗星造访地球的一个月前，日本深山的某个乡下小镇。女高中生三叶（上白石萌音 配音）每天都过着忧郁的生活，而她烦恼的不光有担任镇长的父亲所举行的选举运动，还有家传神社的古老习俗。三叶身居这小镇之中，又处于过多在意周围人目光的年龄，因此对大都市的憧憬日益强烈。',
-        short_pop_comments: [{'comment_date': '2011-06-05', 'comment_text': '黄屋子、红房顶、鸽子房、鸢尾、土豆；猪、乖孩子、窗外的天竺葵；盆景、荨麻、胡桃树下的阴凉；还有凯瑟琳，只要你愿意的话。这个清晨，在各种闹哄哄和各色滤镜下，纪念柳条', 'comment_author': '火山边缘'}, {'comment_date': '2012-01-14', 'comment_text': '又是行为艺术啊...', 'comment_author': '大宸'}, {'comment_date': '2013-04-07', 'comment_text': '重压下的集体狂欢', 'comment_author': '印尼燕窝周掌柜'}, {'comment_date': '2013-03-22', 'comment_text': '毫無才華，活該被禁', 'comment_author': '冰山李'}, {'comment_date': '2011-05-21', 'comment_text': '在我看来完全是耍宝', 'comment_author': 'iceman'}, {'comment_date': '看过2011-04-09', 'comment_text': '神经病院向左，捷克向右', 'comment_author': '丁一'}, {'comment_date': '2011-01-02', 'comment_text': '超级大飞片儿', 'comment_author': 'kurillaz'}, {'comment_date': '看过2013-01-24', 'comment_text': '6。色彩远胜题材', 'comment_author': 'Mannialanck'}, {'comment_date': '2009-11-11', 'comment_text': '啊啊。。当时就推荐看了。。', 'comment_author': '欢乐分裂'}, {'comment_date': '2013-02-11', 'comment_text': '鸡飞与狗跳——一次演出', 'comment_author': '子虚乌有亡是'}, {'comment_date': '2010-08-06', 'comment_text': '下载及中文字幕http://www.douban.com/note/61873376/', 'comment_author': '般若死火'}, {'comment_date': '2012-09-04', 'comment_text': 'http://www.56.com/w27/play_album-aid-9863085_vid-NTY2MDQ2NjU.html\r链接给大家\r可能我还没完全看懂', 'comment_author': '小嘉'}, {'comment_date': '2011-12-23', 'comment_text': '極端的瘋癲，卻又不同於吉普賽的那種瘋狂中嵌著的深深的哀婉與放逐的失落之感，是對於生活的一種極度的希望與自信吧，才能那樣的癲狂如同一群不諳悲苦的瘋子，最後的酒神之會，大雨中的舞蹈，一場大火，將情緒燒到了極致。當然，狂喜之中總潛伏著悲愁，但是，我那些細瑣悵惘在你怒放的歡愉中黯然消逝。', 'comment_author': '蘇小北'}, {'comment_date': '2014-11-13', 'comment_text': '也有不少喜欢的片段，但总体还是达不到期待值。', 'comment_author': 'vivi'}, {'comment_date': '2010-06-24', 'comment_text': '我看完了转头问我朋友说好看么，她傻笑着说，呵呵，没看懂，怎么都是群傻子？', 'comment_author': '黑大壮女神'}, {'comment_date': '2014-01-02', 'comment_text': '这种味道就对了！', 'comment_author': '枯川满'}, {'comment_date': '2011-06-30', 'comment_text': '美感十足~\r', 'comment_author': '六___'}, {'comment_date': '2010-10-11', 'comment_text': '在线看，画质太差了，必须重看！', 'comment_author': '万'}, {'comment_date': '2012-12-09', 'comment_text': '魔幻现实主义呀看不懂看不懂看不懂看不懂', 'comment_author': '王斯王'}, {'comment_date': '2010-08-31', 'comment_text': '我是标题党，但此片让人惊艳。', 'comment_author': '玛婴'}, {'comment_date': '2010-08-31', 'comment_text': '我是标题党，但此片让人惊艳。', 'comment_author': '玛婴222'}],
-        awards: ['第67届奥斯卡金像奖', '最佳纪录长片(提名)', 'Jean Bach', '第67届奥斯卡金像奖', '最佳纪录长片(提名)', 'Jean Bach', '第67届奥斯卡金像奖', '最佳纪录长片(提名)', 'Jean Bach']
+        actors: '',
+        alsoLikeMovies: [],
+        anotherNames: '',
+        awards: '',
+        coverLink: '',
+        directors: '',
+        doubanId: '',
+        doubanRating: '',
+        id: '',
+        imdbLink: '',
+        imdbRating: '',
+        languages: '',
+        name: '',
+        officialWebsite: '',
+        originPlace: '',
+        posterPhotosLinks: [],
+        releaseDate: '',
+        releaseYear: '',
+        reviews: [],
+        runtime: '',
+        screenwriters: '',
+        shortPopComments: [],
+        stillsPhotosLinks: [],
+        synopsis: '',
+        types: '',
+        wallpaperPhotosLinks: []
       }
     }
   },
   methods: {
+    get_one_movie () {
+      var id = this.$route.params.id
+      var _this = this
+      movieApi.getMovieByMovieId(id)
+      .then(function (res) {
+        if (res.data['success'] === false) {
+          _this.$message({
+            message: res.data['error'],
+            type: 'error'
+          })
+          _this.$router.push('/find')
+        } else {
+          // 成功
+          // let movie = JSON.stringify(res.data['data'])
+          let movie = res.data['data']
+          // 处理json,把字符串转成json
+          /* no-useless-escape */
+          console.log(typeof (movie['shortPopComments']))
+          // 强行处理\"\"造成的作物
+          /* eslint no-useless-escape: "off", curly: "error" */
+          movie['shortPopComments'] = movie['shortPopComments'].replace(/\"\"/g, '\"')
+          // shortPopComments如果有错就赋值为空
+          try {
+            movie['shortPopComments'] = JSON.parse(movie['shortPopComments'] || '[]')
+          } catch (e) {
+            movie['shortPopComments'] = []
+          }
+          movie['posterPhotosLinks'] = JSON.parse(movie['posterPhotosLinks'] || '[]')
+          movie['stillsPhotosLinks'] = JSON.parse(movie['stillsPhotosLinks'] || '[]')
+          movie['wallpaperPhotosLinks'] = JSON.parse(movie['wallpaperPhotosLinks'] || '[]')
+          // review如果要用和shortPopComment一样处理
+          // movie['reviews'] = JSON.parse(movie['reviews'] || '[]')
+          movie['reviews'] = []
+          movie['awards'] = movie['awards'].replace(/\\xa0/g, '').replace(/\'/g, '"')
+          movie['alsoLikeMovies'] = movie['alsoLikeMovies'].replace(/\\xa0/g, '').replace(/\'/g, '"')
+          movie['awards'] = JSON.parse(movie['awards'] || '[]')
+          var tempAwards = ''
+          movie['alsoLikeMovies'] = JSON.parse(movie['alsoLikeMovies'] || '[]')
+          for (var i = 0; i < movie['awards'].length; i++) {
+            tempAwards = tempAwards + movie['awards'][i] + ' '
+          }
+          movie['awards'] = tempAwards
+          console.log(movie)
+          _this.movie = movie
+          _this.getCurrentComment(1)
+        }
+      })
+      .catch(function (res) {
+        if (res instanceof Error) {
+          window.console.log(res.message)
+        } else {
+          window.console.log(res.data)
+        }
+      })
+    },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
     },
@@ -381,15 +419,14 @@ export default {
       this.getCurrentComment(val)
     },
     getCurrentComment (page) {
-      var size = this.movie.short_pop_comments.length
+      var size = this.movie.shortPopComments.length
       // var sizePerOnePage = 2
       var startComment = this.sizePerOnePage * (page - 1)
-      console.log(startComment)
       var endComment = startComment + this.sizePerOnePage
       endComment = endComment < size ? endComment : size
       this.currentComments = []
       for (var i = startComment; i < endComment; i++) {
-        this.currentComments.push(this.movie.short_pop_comments[i])
+        this.currentComments.push(this.movie.shortPopComments[i])
       }
     },
     handleMultiLineOverflow (isOverflow) {
@@ -413,7 +450,7 @@ export default {
           'comment_author': commentAuthor
         }
 
-        this.movie.short_pop_comments.unshift(comment)
+        this.movie.shortPopComments.unshift(comment)
         // 加到comment
         // 传上去
         // 提交评论让评论框消失
@@ -431,7 +468,6 @@ export default {
       this.commentText = ''
     },
     submitRating () {
-      console.log(this.valueRating)
       // 置空
       this.valueRating = null
       // 弹出成功
@@ -445,16 +481,36 @@ export default {
     cancleRating () {
       this.visibleRating = false
     }
+    // handlePhotoRequest () {
+    //   var referUrl = 'https://movie.douban.com/subject/' + this.movie.id + '/all_photos'
+    //   var url = 'https://movie.douban.com/photos/photo/2366424485/'
+    //   var xhr = new XMLHttpRequest()
+    //   xhr.open('GET', url, true)
+    //   xhr.responseType = 'blob'
+    //   xhr.setRequestHeader('Referer', referUrl)
+    //   xhr.onload = function () {
+    //     if (this.status === 200) {
+    //       var blob = this.response
+    //       var img = document.createElement('img')
+    //       img.onload = function (e) {
+    //         window.URL.revokeObjectURL(img.src)
+    //       }
+    //       img.src = window.URL.createObjectURL(blob)
+    //       $('imgTest').html(img)
+    //     }
+    //   }
+    //   xhr.send()
+    // }
   },
   computed: {
     totalCommentSize () {
-      return this.movie.short_pop_comments.length
+      return this.movie.shortPopComments.length
     },
     doubanRating () {
-      return parseFloat(this.movie.douban_rating)
+      return parseFloat(this.movie.doubanRating)
     },
     imdbRating () {
-      return parseFloat(this.movie.imdb_rating)
+      return parseFloat(this.movie.imdbRating)
     }
   },
   watch: {

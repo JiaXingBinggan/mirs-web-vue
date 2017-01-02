@@ -21,6 +21,18 @@ import MessagesView from '../views/MessagesView.vue'
 import RecommendationsView from '../views/RecommendationsView.vue'
 import SearchView from '../views/SearchView.vue'
 
+import SystemMessages from '../components/messages/SystemMessages.vue'
+import UserMessages from '../components/messages/UserMessages.vue'
+import UserInfo from '../components/accounts/UserInfo.vue'
+import UserPassword from '../components/accounts/UserPassword.vue'
+import FriendsLists from '../components/friends/FriendsLists.vue'
+import RecommendationsSetting from '../components/recommendations/RecommendationsSettings.vue'
+import RecommendationsQuestionnaire from '../components/recommendations/RecommendationsQuestionnaire.vue'
+import LoginHistory from '../components/history/LoginHistory.vue'
+import BrowsingHistory from '../components/history/BrowsingHistory.vue'
+import RatingHistory from '../components/history/RatingHistory.vue'
+import CommentsHistory from '../components/history/CommentsHistory.vue'
+
 export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
@@ -28,14 +40,105 @@ export default new Router({
     { path: '/', component: IndexView },
     { path: '/login', component: LoginView },
     { path: '/register', component: RegisterView },
-    { path: '/accounts', component: AccountsView },
+    {
+      path: '/accounts',
+      component: AccountsView,
+      children: [
+        {
+          path: 'user-info',
+          components: {
+            accountsView: UserInfo
+          }
+        },
+        {
+          path: 'user-password',
+          components: {
+            accountsView: UserPassword
+          }
+        }
+      ]
+    },
     { path: '/album', component: AlbumView },
     { path: '/find', component: FindView },
     { path: '/box-office', component: BoxOfficeView },
-    { path: '/friends', component: FriendsView },
-    { path: '/history', component: HistoryView },
-    { path: '/messages', component: MessagesView },
-    { path: '/recommendations', component: RecommendationsView },
+    {
+      path: '/friends',
+      component: FriendsView,
+      children: [
+        {
+          path: 'friends-lists',
+          components: {
+            friendsView: FriendsLists
+          }
+        }
+      ]
+    },
+    {
+      path: '/history',
+      component: HistoryView,
+      children: [
+        {
+          path: 'login-history',
+          components: {
+            historyView: LoginHistory
+          }
+        },
+        {
+          path: 'browsing-history',
+          components: {
+            historyView: BrowsingHistory
+          }
+        },
+        {
+          path: 'rating-history',
+          components: {
+            historyView: RatingHistory
+          }
+        },
+        {
+          path: 'comments-history',
+          components: {
+            historyView: CommentsHistory
+          }
+        }
+      ]
+    },
+    {
+      path: '/messages',
+      component: MessagesView,
+      children: [
+        {
+          path: 'system',
+          components: {
+            messagesView: SystemMessages
+          }
+        },
+        {
+          path: 'user',
+          components: {
+            messagesView: UserMessages
+          }
+        }
+      ]
+    },
+    {
+      path: '/recommendations',
+      component: RecommendationsView,
+      children: [
+        {
+          path: 'settings',
+          components: {
+            recommendationsView: RecommendationsSetting
+          }
+        },
+        {
+          path: 'questionnaire',
+          components: {
+            recommendationsView: RecommendationsQuestionnaire
+          }
+        }
+      ]
+    },
     { path: '/search', component: SearchView },
     { path: '/user/:id', component: UserView },
     { path: '/movie/:id', component: MovieView },

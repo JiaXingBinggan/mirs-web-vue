@@ -12,8 +12,8 @@
           </router-link>
           <router-link to="/">首页</router-link>
           <router-link to="/find">发现电影</router-link>
-          <router-link to="/box-office">电影票房</router-link>
-          <router-link to="/album">电影专辑</router-link>
+          <!-- <router-link to="/box-office">电影票房</router-link>
+          <router-link to="/album">电影专辑</router-link> -->
         </div>
         <div class="search-bar" slot="right">
           <simple-search></simple-search>
@@ -182,4 +182,41 @@ a
       margin-right 1em
     .github
       display none
+
+/* 个人中心统一样式 */
+.personal-center
+  width 980px
+  margin-top 80px
+  margin-left auto
+  margin-right auto
+  padding 0
+  padding-bottom 60px
+  .menu
+    border 1px solid #d8d8d8
+    border-radius 3px
+    h2
+      margin-top 0
+      margin-bottom 0
+      padding 8px 10px 8px 20px
+      border-bottom 1px solid #eee
+      border-top-radius 2px
+      background-color #f7f7f7
+    .menu-item
+      display block
+      padding 8px 10px 8px 24px
+      border-bottom 1px solid #eee
+      cursor pointer
+    a
+      color #111
+  .input-button
+    border-radius 3px
+    width 102px
+    height 32px
+    background-color #eee
+    border 1px solid #e9e9e9
+    font-size 14px
+    box-shadow 0px 1px 1px rgba(0, 0, 0, 0.3)
+    cursor pointer
+    &:hover
+      border 1px solid #d1d1d1
 </style>

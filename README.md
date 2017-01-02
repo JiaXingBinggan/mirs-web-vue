@@ -1,6 +1,6 @@
 ## 项目说明
 
-> 电影智能推荐系统前端的Vue实现，Demo[地址](https://www.91film.top/)
+> 电影智能推荐系统([后端地址](https://github.com/firery/mirs))前端的Vue实现，Demo[地址](https://www.91film.top/)
 
 ## 构建步骤
 
@@ -35,6 +35,7 @@ index.html
 │   └── modules                   # store模块
 │       ├── notification.js       # 通知模块
 │       └── ...                   # 其他模块
+└── utils                         # 项目的一些自定义模块等
 └── views                         # View组件
 ```
 
@@ -53,9 +54,12 @@ index.html
 ## To Do List
 + [ ] 设计
   + [x] 登录注册设计
-  + [ ] 首页排版设计
-  + [ ] 用户中心设计
-  + [ ] 单个电影页面设计
+  + [x] 首页排版设计
+  + [x] 用户中心设计
+  + [x] 单个电影页面设计
+  + [x] 高级搜索页面设计  
+  + [ ] 电影票房页面
+  + [ ] 电影专辑页面设计
 + [ ] 开发
   + [ ] 登录注册
     + [x] 登录
@@ -63,9 +67,9 @@ index.html
     + [ ] 第三方登录
     + [ ] 找回密码
   + [ ] 个人中心
-    + [ ] 基本信息管理
-      + [ ] 完善信息
-      + [ ] 重置密码
+    + [x] 基本信息管理
+      + [x] 完善信息
+      + [x] 重置密码
     + [ ] 我的消息
     + [ ] 好友管理
       + [ ] 好友列表
@@ -75,21 +79,21 @@ index.html
     + [ ] 我的记录
       + [ ] 登录记录
       + [ ] 观看记录
-    + [ ] 退出登录
+    + [x] 退出登录
   + [ ] 首页
-    + [ ] 每日电影推荐
-    + [ ] 热映电影推荐
-    + [ ] 高分电影推荐
+    + [x] 每日电影推荐
+    + [x] 热映电影推荐
+    + [x] 高分电影推荐
     + [ ] 相似用户推荐
   + [ ] 发现电影页
-    + [ ] 筛选部分
+    + [x] 筛选部分
     + [ ] 主体展示部分
   + [ ] 搜索
-    + [ ] 首页基本搜索
+    + [x] 首页基本搜索
     + [ ] 高级搜索页
-  + [ ] 电影展示页
-  + [ ] 用户信息展示页
-  + [ ] 404页
+  + [x] 电影展示页
+  + [x] 用户信息展示页
+  + [x] 404页
 
 ## 贡献代码
   1. fork 本仓库
@@ -100,19 +104,19 @@ index.html
   3. 配置git，使其能与源仓库同步
     + 在本仓库页面复制这个仓库的URL
     + 定位到你本地克隆的仓库，使用 ```git remote -v```，可以看到fork当前配置的仓库，如下所示：
-    
+
       ``` bash
         $ git remote -v
         origin  https://github.com/YOUR_USERNAME/mirs-web-vue.git (fetch)
         origin  https://github.com/YOUR_USERNAME/mirs-web-vue.git (push)
       ```
     + 输入 ```git remote add upstream```，然后粘贴刚才复制的URL，如下所示：
-    
+
       ```
         git remote add upstream https://github.com/firery/mirs-web-vue.git
       ```
     + 再次输入``` git remote -v  ```。你将会看到你 fork 的 URL 作为原始的地址，而原始的仓库的 URL 作为 upstream。
-    
+
       ```
         $ git remote -v
         origin    https://github.com/YOUR_USERNAME/mirs-web-vue.git (fetch)
