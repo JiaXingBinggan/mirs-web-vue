@@ -21,10 +21,13 @@ export function toDate (timestamp) {
 }
 
 export function addHttp (url) {
-  return 'http://' + url
+  url = url.replace(' ', '')
+  console.log(url.startsWith('http') + '---------------------')
+  return url.startsWith('http') ? url : 'http://' + url
 }
 
 export function addIMDbLink (url) {
+  // url = url.replace(' ', '')
   return 'http://www.imdb.com/title/' + url
 }
 

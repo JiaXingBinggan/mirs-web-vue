@@ -15,91 +15,89 @@
               </a>
             </div>
             <div id="info">
-              <span>
+              <span v-show="movie.directors">
                 <span class="pl">导演：</span>
                 <span class="attrs">{{movie.directors}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.screenwriters">
                 <span class="pl">编剧：</span>
                 <span class="attrs">{{movie.screenwriters}}</span>
+                <br>
               </span>
-              <br>
-              <span class="actor">
+              <span class="actor" v-show="movie.actors">
                 <span class="pl">主演：</span>
                 <span class="attrs">
                 <span>{{movie.actors}}</span>
                 </span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.types">
                 <span class="pl">类型：</span>
                 <span class="attrs">{{movie.types}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.originPlace">
                 <span class="pl">制片国家/地区：</span>
                 {{movie.originPlace}}
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.languages">
                 <span class="pl">语言：</span>
                 {{movie.languages}}
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.releaseDate">
                 <span class="pl">上映日期：</span>
                 <span>{{movie.releaseDate}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.runtime">
                 <span class="pl">片长：</span>
                 <span>{{movie.runtime}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.anotherNames">
                 <span class="pl">又名：</span>
                 <span>{{movie.anotherNames}}</span>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.officialWebsite">
                 <span class="pl">官方网站：</span>
-                <!-- <a :href="movie.officialWebsite | addHttp">{{movie.officialWebsite}}</a> -->
-                <a :href="movie.officialWebsite">{{movie.officialWebsite}}</a>
+                <a :href="movie.officialWebsite | addHttp" >{{movie.officialWebsite}}</a>
+                <!-- <a :href="movie.officialWebsite">{{movie.officialWebsite}}</a> -->
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="movie.imdb_link">
                 <span class="pl">IMDb链接：</span>
-                <a :href="movie.imdbLink">{{movie.imdbLink}}</a>
-                <!-- <a :href="movie.imdb_link | addIMDbLink">{{movie.imdb_link}}</a> -->
+                <a :href="movie.imdb_link | addIMDbLink">{{movie.imdb_link}}</a>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="doubanRating">
                 <div id="ratingPlace">
                   <span class="pl" id="ratingLeft">豆瓣评分：</span>
                   <el-rate :max=10 v-model="doubanRating" id="ratingRight"  disabled show-text text-color="#ff9900" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                 </el-rate>
                 </div>
                 </el-rate>
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="imdbRating">
                 <div id="ratingPlace">
                   <span class="pl" id="ratingLeft">IMDb评分：</span>
                   <el-rate :max=10 v-model="imdbRating" id="ratingRight" disabled show-text text-color="#ff9900" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                   </el-rate>
                 </div>
-
+                <br>
               </span>
-              <br>
-              <span>
+              <span v-show="imdbRating">
                 <div id="ratingPlace">
                   <span class="pl" id="ratingLeft">本站评星：</span>
                   <el-rate :max=5 v-model="imdbRating" id="ratingRight" disabled  text-color="#ff9900" :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                   </el-rate>
                 </div>
+                <br>
               </span>
-              <br>
             </div>
         </section>
         <section id="header-right">
@@ -189,24 +187,14 @@
       </section>
       <section id="award" class="section-same">
         <h2>
-          {{movie.name}}的获奖情况 · · · · · ·(
-        <a href="https://movie.douban.com/photos/photo/2293569209/">全部</a>
-        )
+          {{movie.name}}的获奖情况 · · · · · ·
         </h2>
-        <ul>
-          <li v-for="award in movie.awards ">
-            {{ award}}
-          </li>
-          <li>
-            第44届动画安妮奖 最佳导演(提名) 新海诚
-          </li>
-          <li>
-            第44届动画安妮奖 最佳独立动画长片(提名)
-          </li>
-          <li>
-            第42届洛杉矶影评人协会奖 最佳动画片
-          </li>
-        </ul>
+        <div v-if="movie.awards">
+          {{movie.awards}}
+        </div>
+        <div v-else>
+          暂无
+        </div>
       </section>
       <section id="also-like-movie" class="section-same">
         <h2>喜欢这部电影的人也喜欢 · · · · · ·</h2>
@@ -339,9 +327,9 @@ export default {
       sizePerOnePage: 5,
       movie: {
         actors: '',
-        alsoLikeMovies: '',
+        alsoLikeMovies: [],
         anotherNames: '',
-        awards: [],
+        awards: '',
         coverLink: '',
         directors: '',
         doubanId: '',
@@ -381,15 +369,35 @@ export default {
           _this.$router.push('/find')
         } else {
           // 成功
-          // let movie = JSON.parse(JSON.stringify(res.data['data']))
+          // let movie = JSON.stringify(res.data['data'])
           let movie = res.data['data']
           // 处理json,把字符串转成json
-          movie['shortPopComments'] = JSON.parse(movie['shortPopComments'] || '[]')
+          /* no-useless-escape */
+          console.log(typeof (movie['shortPopComments']))
+          // 强行处理\"\"造成的作物
+          /* eslint no-useless-escape: "off", curly: "error" */
+          movie['shortPopComments'] = movie['shortPopComments'].replace(/\"\"/g, '\"')
+          // shortPopComments如果有错就赋值为空
+          try {
+            movie['shortPopComments'] = JSON.parse(movie['shortPopComments'] || '[]')
+          } catch (e) {
+            movie['shortPopComments'] = []
+          }
           movie['posterPhotosLinks'] = JSON.parse(movie['posterPhotosLinks'] || '[]')
           movie['stillsPhotosLinks'] = JSON.parse(movie['stillsPhotosLinks'] || '[]')
           movie['wallpaperPhotosLinks'] = JSON.parse(movie['wallpaperPhotosLinks'] || '[]')
-          movie['reviews'] = JSON.parse(movie['reviews'] || '[]')
+          // review如果要用和shortPopComment一样处理
+          // movie['reviews'] = JSON.parse(movie['reviews'] || '[]')
+          movie['reviews'] = []
+          movie['awards'] = movie['awards'].replace(/\\xa0/g, '').replace(/\'/g, '"')
+          movie['alsoLikeMovies'] = movie['alsoLikeMovies'].replace(/\\xa0/g, '').replace(/\'/g, '"')
           movie['awards'] = JSON.parse(movie['awards'] || '[]')
+          var tempAwards = ''
+          movie['alsoLikeMovies'] = JSON.parse(movie['alsoLikeMovies'] || '[]')
+          for (var i = 0; i < movie['awards'].length; i++) {
+            tempAwards = tempAwards + movie['awards'][i] + ' '
+          }
+          movie['awards'] = tempAwards
           console.log(movie)
           _this.movie = movie
           _this.getCurrentComment(1)
