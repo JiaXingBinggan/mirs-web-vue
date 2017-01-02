@@ -1,8 +1,8 @@
 <template>
-  <div class="index-movies">
+  <div class="index-movies" @dblclick="button_restore()">
     <h2>{{msg}}</h2>
     <div class="button_index">
-      <mu-flat-button v-for="button in button_index" :label="button.button_option" class="demo-flat-button" @click="button_change(button)" :backgroundColor="button===current_button?current_button_backcolor:default_button_backcolor" :color="button===current_button?current_button_fontcolor:default_button_fontcolor"/>
+      <mu-flat-button v-for="button in button_index" :label="button.button_option" class="demo-flat-button" @click="button_change(button)" :backgroundColor="button===current_button?'#0066CC':''" :color="button===current_button?'#FFFFFF':''"/>
     </div>
     <div class="select_index">
       <div class="select_title"><label>详细搜索</label></div>
@@ -31,10 +31,6 @@ export default {
   name: 'index-movies',
   data () {
     return {
-      default_button_backcolor: '',
-      default_button_fontcolor: '',
-      current_button_backcolor: '',
-      current_button_fontcolor: '',
       current_button: '',
       msg: '电影导航',
       button_index: movieCatagory.movieIndex.button_index,
@@ -51,13 +47,9 @@ export default {
   methods: {
     button_change: function (arg) {
       this.current_button = arg
-      if (this.current_button_backcolor === '') {
-        this.current_button_backcolor = '#0066CC'
-        this.current_button_fontcolor = '#FFFFFF'
-      } else {
-        this.current_button_backcolor = ''
-        this.current_button_fontcolor = ''
-      }
+    },
+    button_restore: function () {
+      this.current_button = ''
     }
   }
 }
