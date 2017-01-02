@@ -21,6 +21,9 @@ import MessagesView from '../views/MessagesView.vue'
 import RecommendationsView from '../views/RecommendationsView.vue'
 import SearchView from '../views/SearchView.vue'
 
+import SystemMessages from '../components/messages/SystemMessages.vue'
+import UserMessages from '../components/messages/UserMessages.vue'
+
 export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
@@ -34,7 +37,24 @@ export default new Router({
     { path: '/box-office', component: BoxOfficeView },
     { path: '/friends', component: FriendsView },
     { path: '/history', component: HistoryView },
-    { path: '/messages', component: MessagesView },
+    {
+      path: '/messages',
+      component: MessagesView,
+      children: [
+        {
+          path: 'system',
+          components: {
+            personalCenter: SystemMessages
+          }
+        },
+        {
+          path: 'user',
+          components: {
+            personalCenter: UserMessages
+          }
+        }
+      ]
+    },
     { path: '/recommendations', component: RecommendationsView },
     { path: '/search', component: SearchView },
     { path: '/user/:id', component: UserView },
