@@ -20,6 +20,7 @@ import HistoryView from '../views/HistoryView.vue'
 import MessagesView from '../views/MessagesView.vue'
 import RecommendationsView from '../views/RecommendationsView.vue'
 import SearchView from '../views/SearchView.vue'
+import ChatRoomView from '../views/ChatRoomView.vue'
 
 import SystemMessages from '../components/messages/SystemMessages.vue'
 import UserMessages from '../components/messages/UserMessages.vue'
@@ -40,6 +41,7 @@ export default new Router({
     { path: '/', component: IndexView },
     { path: '/login', component: LoginView },
     { path: '/register', component: RegisterView },
+    { path: '/chat-room', component: ChatRoomView },
     {
       path: '/accounts',
       component: AccountsView,
