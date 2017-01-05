@@ -4,7 +4,7 @@
     <slider>
       <slider-item>
         <div>
-          <img width="900" height="300" src="http://img5.mtime.cn/mg/2016/11/29/090307.59995664.jpg">
+          <img width="1180" height="300" src="http://img5.mtime.cn/mg/2016/11/29/090307.59995664.jpg">
           <div class="hot_movie_context">
             <label>哈尔的移动城堡&nbsp;<span>1999</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
@@ -22,7 +22,7 @@
       </slider-item>
       <slider-item>
         <div>
-          <img width="900" height="300" src="http://img5.mtime.cn/mg/2016/11/26/090325.11034692.jpg">
+          <img width="1180" height="300" src="http://img5.mtime.cn/mg/2016/11/26/090325.11034692.jpg">
           <div class="hot_movie_context">
             <label>你的名字&nbsp;<span>2016</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
@@ -40,7 +40,7 @@
       </slider-item>
       <slider-item>
         <div>
-          <img width="900" height="300" src="http://img5.mtime.cn/mg/2016/11/28/155750.78638707.jpg">
+          <img width="1180" height="300" src="http://img5.mtime.cn/mg/2016/11/28/155750.78638707.jpg">
           <div class="hot_movie_context">
             <label>昨夜秋风凋碧树&nbsp;<span>1999</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
@@ -80,6 +80,7 @@ export default {
 
 <style lang="stylus" scoped>
 .hot-movies
+  width 100%
   height 350px
 .hot-movies h3
   border-bottom 1px solid #d0d0d0
@@ -87,12 +88,12 @@ export default {
 .hot_movie_context
   background #F0F0F0
   height 300px
-  width 280px
+  width 320px
   padding-top 30px
   padding-left 25px
   padding-right 20px
   margin-top -305px
-  margin-left 900px
+  margin-left 1180px
 .hot_movie_context label
   font-size 20px
   color #004B97

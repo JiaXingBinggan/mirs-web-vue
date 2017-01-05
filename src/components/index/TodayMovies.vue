@@ -82,7 +82,9 @@ export default {
 
 <style lang="stylus" scoped>
 .today-movies
+  width 1440px
   height 720px
+  margin-left 20px
 .border-movie
   width 20%
   height 45%
