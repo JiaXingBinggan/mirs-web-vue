@@ -45,7 +45,9 @@ export default {
 <style lang="stylus" scoped>
 h1
   background rgba(110, 86, 117, 0.22)
+.index-view
+  height auto
+  overflow hidden
 .wrapper
   margin 20px auto
-  width 1166x
 </style>
