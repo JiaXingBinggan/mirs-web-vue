@@ -54,5 +54,14 @@ export default {
       withCredentials: true
     }
     )
+  },
+  sendMessage (message) {
+    return axios({
+      method: 'post',
+      url: userApi.sendMessageUrl(),
+      data: message,
+      withCredentials: true
+    }
+    )
   }
 }
