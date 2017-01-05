@@ -12,6 +12,9 @@
           </router-link>
           <router-link to="/">首页</router-link>
           <router-link to="/find">发现电影</router-link>
+          <router-link to="/search">高级搜索</router-link>
+          <router-link to="/bbs">社区</router-link>
+          <a href="#" @click="send()">发送消息测试</a>
           <!-- <router-link to="/box-office">电影票房</router-link>
           <router-link to="/album">电影专辑</router-link> -->
         </div>
@@ -76,6 +79,7 @@ export default {
   data () {
     return {
       defaultAvatar,
+      stompClient: null,
       open: false,
       docked: true
     }
@@ -102,6 +106,15 @@ export default {
     toggle (flag) {
       this.open = !this.open
       this.docked = !flag
+    },
+    send () {
+      var simpleMessage = {
+        'from': '1',
+        'to': '1',
+        'type': '0',
+        'content': '11111111111'
+      }
+      this.$store.dispatch('sendSimpleMessage', simpleMessage)
     }
   }
 }

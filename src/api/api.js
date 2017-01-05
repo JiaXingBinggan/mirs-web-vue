@@ -31,7 +31,9 @@ export const userApi = {
   // POST
   updatePasswordUrl: () => host + '/accounts/password',
   // POST
-  resetPasswordUrl: () => host + '/accounts/reset-password'
+  resetPasswordUrl: () => host + '/accounts/reset-password',
+  // POST
+  sendMessageUrl: () => host + '/send'
 }
 
 export const movieApi = {
