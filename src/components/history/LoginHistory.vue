@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  name: 'user-info',
+  name: 'login-history',
   loginLog: {
     time: '2017-01-05 10:42:42',
     userip: '210.41.96.234',
@@ -80,19 +80,8 @@ export default {
           userip: '210.41.96.234',
           address: '四川成都市电子科技大学区教育网'
         }
-      ],
-      size: 2,
-      currentPage: 1,
-      sizePerOnePage: 5
+      ]
     }
-  },
-  computed: {
-    total: function () {
-      return parseInt(this.loginLogList.length / this.size) + 1
-    }
-  },
-  methods: {
-
   }
 }
 </script>
