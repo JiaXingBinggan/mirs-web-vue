@@ -14,7 +14,11 @@ const state = {
     university: '',
     major: ''
   },
-  expireTime: ''
+  expireTime: '',
+  messages: {
+    'sMessages': [],
+    'uMessages': []
+  }
 }
 
 const mutations = {
@@ -31,27 +35,42 @@ const mutations = {
     state.user = {}
     state.expireTime = ''
     Store.remove('user')
+  },
+  [types.SET_SYSTEM_MESSAGES] (state, message) {
+    state.messages['sMessages'].push(message)
+  },
+  [types.SET_USER_MESSAGES] (state, message) {
+    state.messages['uMessages'].push(message)
   }
 }
 
 // actions
 const actions = {
-  doLogin ({commit}, user) {
+  doLogin ({dispatch, commit}, user) {
     commit(types.LOGIN, user)
-    actions.connectStomp(user['id'])
+    dispatch('connectStomp', user['id'])
   },
   doLogout ({commit}) {
     commit(types.LOGOUT)
   },
-  connectStomp (id) {
-    Courier.connect(id)
+  connectStomp ({commit}, id) {
+    function systemMessage (message) {
+      // window.console.log('--------------scallback--------------')
+      // window.console.log(JSON.parse(message.body))
+      commit(types.SET_SYSTEM_MESSAGES, JSON.parse(message.body))
+    }
+    function userMessage (message) {
+      // window.console.log(JSON.parse(message.body))
+      commit(types.SET_USER_MESSAGES, JSON.parse(message.body))
+    }
+    Courier.connect(id, systemMessage, userMessage)
   },
   sendMessageByStomp (msg) {
     Courier.sendMessage(msg)
   },
   sendSimpleMessage ({commit}, simpleMessage) {
-    window.console.log(simpleMessage)
-    window.console.log('----------------------------')
+    // window.console.log(simpleMessage)
+    // window.console.log('----------------------------')
     userApi.sendMessage(simpleMessage)
   }
 }
