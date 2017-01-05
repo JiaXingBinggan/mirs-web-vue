@@ -14,6 +14,7 @@
           <router-link to="/find">发现电影</router-link>
           <router-link to="/search">高级搜索</router-link>
           <router-link to="/bbs">社区</router-link>
+          <router-link to="/chat-room">聊天室</router-link>
           <a href="#" @click="send()">发送消息测试</a>
           <!-- <router-link to="/box-office">电影票房</router-link>
           <router-link to="/album">电影专辑</router-link> -->
