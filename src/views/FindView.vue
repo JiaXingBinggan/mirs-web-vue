@@ -56,7 +56,7 @@
       </div>
       </div>
     </div>
-    <el-button class="load-more-button" @click="loadMore" :loading="loading" :disabled="disabled">点击加载更多</el-button>
+    <el-button class="load-more-button" @click="loadMore" :loading="loading" :disabled="disabled">{{buttonText}}</el-button>
   </div>
 </template>
 
@@ -97,14 +97,15 @@ export default {
       loading: false,
       current_movie: '',
       value: 9,
-      movies: ''
+      movies: '',
+      buttonText: '点击加载更多'
     }
   },
   methods: {
     loadMore () {
       var _this = this
       this.loading = true
-      this.limit += this.limit
+      this.limit += 6
       if (this.current_index_keywords === '9.0-9.9') {
         this.get_movies()
       } else {
@@ -118,7 +119,7 @@ export default {
         } else {
           // 获取数据成功
           _this.movies = res.data['data']
-          console.log(_this.movies['doubanRating'])
+          _this.movies_limit(res.data['data'])
           _this.loading = false
         }
       })
@@ -129,6 +130,13 @@ export default {
           window.console.log(res.data)
         }
       })
+      }
+    },
+    movies_limit: function (results) {
+      // 表示不能加载更多了
+      if (results.length < this.limit) {
+        this.buttonText = '不能加载更多了'
+        this.disabled = true
       }
     },
     button_select: function (arg) {
@@ -151,7 +159,6 @@ export default {
         } else {
           // 获取数据成功
           _this.movies = res.data['data']
-          console.log(_this.movies['doubanRating'])
           _this.loading = false
         }
       })
@@ -189,6 +196,7 @@ export default {
         } else {
           // 获取数据成功
           _this.movies = res.data['data']
+          _this.movies_limit(res.data['data'])
           _this.loading = false
         }
       })
@@ -265,6 +273,7 @@ export default {
         } else {
           // 获取数据成功
           _this.movies = res.data['data']
+          _this.movies_limit(res.data['data'])
           _this.loading = false
         }
       })
