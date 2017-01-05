@@ -47,6 +47,7 @@
       </mu-list>
     </div>
     <el-button class="load-more-button" @click="loadMore" :loading="loading" :disabled="disabled">{{buttonText}}</el-button>
+  </div>
 </template>
 
 <script>
