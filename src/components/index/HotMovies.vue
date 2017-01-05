@@ -94,7 +94,6 @@ export default {
 @media screen and (max-width: 500px) { 
   .hot-movies {width: 100px;}  
 } 
-
 .hot-movies h3
   border-bottom 1px solid #d0d0d0
   padding-bottom 15px

@@ -3,21 +3,28 @@
     <div class="main-contant">
       <div v-for="message in systemMessages">
         <div v-if="message.from === username" class="ownMessage">
-          {{message.content}}:{{message.from}}
+          <div class="ownblock">
+           <mu-list-item :title="message.from" disabled><mu-avatar slot="right" :src="logo" :size="30"/></mu-list-item>
+           <mu-chip class="demo-chip" style="margin-right:10px;font-size:16px">{{message.content}}</mu-chip>
+          </div>
         </div>
         <div v-else class="othersMessage">
-          {{message.from}}:{{message.content}}
+          <div class="otherblock">
+           <mu-list-item :title="message.from" disabled><mu-avatar slot="left" :src="logo" :size="30"/></mu-list-item>
+           <mu-chip class="demo-chip" style="margin-left:10px;font-size:16px">{{message.content}}</mu-chip>
+          </div>
         </div>
       </div>
     </div>
     <div class="post_block">
-      <input v-on:keyup.enter="sendMessage" v-model="content" >
-      <button v-on:keyup.enter="sendMessage" @click="sendMessage">发送</button>
+      <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 6}" v-on:keyup.enter="sendMessage" v-model="content" placeholder="请输入内容" class="send_input"></el-input>
+      <el-button type="primary" icon="edit" v-on:keyup.enter="sendMessage" @click="sendMessage" class="send_button"></el-button>
     </div>
   </div>
 </template>
 
 <script>
+import logo from '../../public/logo.png'
 export default {
   name: 'chat-room-view',
   beforeCreate () {
@@ -28,7 +35,8 @@ export default {
   },
   data () {
     return {
-      content: ''
+      content: '',
+      logo
     }
   },
   computed: {
@@ -58,26 +66,69 @@ export default {
 
 <style lang="stylus" scoped>
 .chat-room-view
-    width 720px
+    width 1000px
     margin 50px auto
     text-align left
+    overflow hidden
   .main-contant
-    width 100%
-    height 400px
-    overflow scroll
+    width 90%
+    height 600px
+    overflow-x hidden
     font-size 10px
     text-align left
-    background-color #f2f2f2
+    border 1px solid #000000
+    border-radius 10px
+    border-bottom-left-radius 0px
+    border-bottom-right-radius 0px
+    background #FCFCFC
     .ownMessage
       width 100%
       text-align right
       float right
+      .ownblock
+        float right
+        margin 5px
+        h2
+        margin-left 10px
+        margin-top 20px
+        h2 i
+          margin-left 10px
+      .owntextarea
+        width 300px
+        margin-top 10px
+        margin-left 10px
     .message
       width 100%
       display inline-block
+  .othersMessage
+    margin-top 20px
+  .otherblock
+    margin 5px
+    .otherblock h2
+      margin-right 10px
+      margin-top 20px
+        h2 i
+          margin-left 10px
+    .othertextarea
+      width 300px
+      margin-top 10px
   .post_block
-    float right
-    width 250px
-    height 100px
-
+    border 1px solid #000000
+    border-top 0px
+    padding-top 20px
+    width 90%
+    height 92px
+    border-bottom-left-radius 10px
+    border-bottom-right-radius 10px
+  .send_input
+    width 90%
+    float left
+    margin-top -20px
+    border-right 0px
+  .send_button
+    margin-left 10px
+    width 50px
+    height 50px 
+    border-radius 50%
+    background  #0080FF
 </style>
