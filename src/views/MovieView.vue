@@ -504,6 +504,8 @@ export default {
   },
   computed: {
     totalCommentSize () {
+      console.log('computed test2222222222222\n')
+      console.log(this.movie.shortPopComments.length)
       return this.movie.shortPopComments.length
     },
     doubanRating () {
@@ -516,6 +518,7 @@ export default {
   watch: {
     movie: {
       handler: function (val, oldVal) {
+        console.log('watch 33333333333333333333\n')
         this.handleCurrentChange(this.currentPage)
       },
       deep: true
