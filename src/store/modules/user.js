@@ -1,5 +1,7 @@
 import * as types from '../mutation-types'
 import Store from '../../utils/store.js'
+import Courier from '../../utils/courier.js'
+import userApi from '../../api/userApi.js'
 
 const state = {
   login: false,
@@ -36,9 +38,21 @@ const mutations = {
 const actions = {
   doLogin ({commit}, user) {
     commit(types.LOGIN, user)
+    actions.connectStomp(user['id'])
   },
   doLogout ({commit}) {
     commit(types.LOGOUT)
+  },
+  connectStomp (id) {
+    Courier.connect(id)
+  },
+  sendMessageByStomp (msg) {
+    Courier.sendMessage(msg)
+  },
+  sendSimpleMessage ({commit}, simpleMessage) {
+    window.console.log(simpleMessage)
+    window.console.log('----------------------------')
+    userApi.sendMessage(simpleMessage)
   }
 }
 
