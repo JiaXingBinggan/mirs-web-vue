@@ -4,7 +4,9 @@
       <el-col :span="6">
         <div class="menu">
           <h2>好友管理</h2>
-          <router-link class="menu-item" to="/friends/friends-lists">好友列表</router-link>
+          <router-link class="menu-item" to="/friends/friends-lists">好友列表
+          </router-link>
+          <div style="margin-top: 15px;">
         </div>
       </el-col>
       <el-col :span="18">
