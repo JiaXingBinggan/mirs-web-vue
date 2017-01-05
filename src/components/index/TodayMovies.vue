@@ -82,14 +82,14 @@ export default {
 
 <style lang="stylus" scoped>
 .today-movies
-  width 1440px
+  width 1280px
   height 720px
   margin-left 20px
 .border-movie
   width 20%
   height 45%
   float left
-  margin-left 10%
+  margin-left 13%
 .single-movie
   height 100%
   width 75%
@@ -102,7 +102,7 @@ export default {
   background rgb(255,255,255)
   height 400px
   width 310px
-  margin-top -325px
+  margin-top -127%
   margin-left 80%
   float left
   position relative
