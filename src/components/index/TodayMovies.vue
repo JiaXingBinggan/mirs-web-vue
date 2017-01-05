@@ -79,17 +79,30 @@ export default {
 }
 </script>
 
-
+<style> 
+  .today-movies{height: 720px;margin:0px auto;}
+</style> 
 <style lang="stylus" scoped>
 .today-movies
-  width 1280px
   height 720px
-  margin-left 20px
+  margin 0px auto
+@media screen and (min-width: 1201px) { 
+  .today-movies {width: 1200px}  
+} 
+@media screen and (max-width: 1200px) { 
+  .today-movies {width: 900px}  
+} 
+@media screen and (max-width: 900px) { 
+  .today-movies {width: 200px;}  
+} 
+@media screen and (max-width: 500px) { 
+  .today-movies {width: 100px;}  
+} 
 .border-movie
   width 20%
   height 45%
   float left
-  margin-left 13%
+  margin-left 10%
 .single-movie
   height 100%
   width 75%
@@ -102,7 +115,7 @@ export default {
   background rgb(255,255,255)
   height 400px
   width 310px
-  margin-top -127%
+  margin-top -325px
   margin-left 80%
   float left
   position relative

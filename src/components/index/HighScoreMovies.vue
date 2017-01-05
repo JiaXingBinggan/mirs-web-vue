@@ -65,6 +65,19 @@ export default {
 <style lang="stylus" scoped>
 .high-score-movies
   height 1800px
+  margin 0px auto
+@media screen and (min-width: 1201px){
+  .high-score-movies{width:1200px}
+}
+@media screen and (max-width: 1201px){
+  .high-score-movies{width:900}
+}
+@media screen and (max-width: 900){
+  .high-score-movies{width:200px}
+}
+@media screen and (max-width: 500px){
+  .high-score-movies{width:100px}
+}
 .movie_item
   width 100%
   height 16%

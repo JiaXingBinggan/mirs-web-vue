@@ -55,18 +55,31 @@ export default {
 <style lang="stylus" scoped>
 .similar-users
   height 300px
+  margin 0px auto
+@media screen and (min-width: 1201px){
+  .similar-users{width:1200px}
+}
+@media screen and (max-width: 1200px){
+  .similar-users{width:900px}
+}
+@media screen and (max-width: 900px){
+  .similar-users{width:200px}
+}
+@media screen and (max-width: 500px){
+  .similar-users{width:100px}
+}
 .usercontainer
   height 260px
   border-top 1px solid #d0d0d0
 .user
   height 200px
-  width 205px
+  width 160px
   margin 20px 0px 0px 30px
   float left
   cursor pointer
 .user .face
   border-radius 50%
-  margin 20px 20px 0px 40px
+  margin 20px 20px 0px 50px
 .user h3
   text-align center
 </style>
