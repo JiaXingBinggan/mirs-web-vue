@@ -3,7 +3,7 @@
     <div id="form">
       <div class="face-area">
         <h3>他的帅脸</h3>
-        <img class="face" src="https://avatars0.githubusercontent.com/u/17798805?v=3&u=a85ecf41aa0ef94009bfd4dcea7f3208069dcf16&s=400">
+        <img class="face" src="">
         <input type="button" class="focus input-button" @click="focus()" :value="focused === false ? '关 注' : '取消关注'">
       </div>
       <div class="user-info">
