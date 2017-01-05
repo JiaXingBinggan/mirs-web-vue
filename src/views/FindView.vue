@@ -302,10 +302,34 @@ export default {
   width 1400px
   height auto
   overflow hidden
+@media screen and (min-width: 1201px) { 
+  .find-view {width: 1400px}  
+} 
+@media screen and (max-width: 1200px) { 
+  .find-view {width: 900px}  
+} 
+@media screen and (max-width: 900px) { 
+  .find-view {width: 200px;}  
+} 
+@media screen and (max-width: 500px) { 
+  .find-view {width: 100px;}  
+}
 .find-view .movies-result
   width 1100px
   height 700px
   margin 0px auto
+@media screen and (min-width: 1201px) { 
+  .find-view .movies-result {width: 1100px}  
+} 
+@media screen and (max-width: 1200px) { 
+  .find-view .movies-result {width: 900px}  
+} 
+@media screen and (max-width: 900px) { 
+  .find-view .movies-result {width: 200px;}  
+} 
+@media screen and (max-width: 500px) { 
+  .find-view .movies-result {width: 100px;}  
+}
 .border-movie
   width 20%
   height 45%
@@ -373,11 +397,35 @@ h2
   height 150px
   padding 0px
   margin 20px 60px 30px 60px
+@media screen and (min-width: 1201px) { 
+  .button_index {width: 1100px}  
+} 
+@media screen and (max-width: 1200px) { 
+  .button_index {width: 900px}  
+} 
+@media screen and (max-width: 900px) { 
+  .button_index {width: 200px;}  
+} 
+@media screen and (max-width: 500px) { 
+  .button_index {width: 100px;}  
+}
 .demo-flat-button
   margin 12px
 .select_index
   border-top 1px solid #BEBEBE
   height 80px
+@media screen and (min-width: 1201px) { 
+  .select_index {width: 1100px}  
+} 
+@media screen and (max-width: 1200px) { 
+  .select_index {width: 900px}  
+} 
+@media screen and (max-width: 900px) { 
+  .select_index {width: 200px;}  
+} 
+@media screen and (max-width: 500px) { 
+  .select_index {width: 100px;}  
+}
 .demo-flat-button 
   margin: 12px
 .select_title

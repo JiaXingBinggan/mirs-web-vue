@@ -4,7 +4,7 @@
     <slider>
       <slider-item>
         <div>
-          <img width="1180" height="300" src="http://img5.mtime.cn/mg/2016/11/29/090307.59995664.jpg">
+          <img width="75%" height="300" src="http://img5.mtime.cn/mg/2016/11/29/090307.59995664.jpg">
           <div class="hot_movie_context">
             <label>哈尔的移动城堡&nbsp;<span>1999</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
@@ -22,7 +22,7 @@
       </slider-item>
       <slider-item>
         <div>
-          <img width="1180" height="300" src="http://img5.mtime.cn/mg/2016/11/26/090325.11034692.jpg">
+          <img width="75%" height="300" src="http://img5.mtime.cn/mg/2016/11/26/090325.11034692.jpg">
           <div class="hot_movie_context">
             <label>你的名字&nbsp;<span>2016</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
@@ -40,7 +40,7 @@
       </slider-item>
       <slider-item>
         <div>
-          <img width="1180" height="300" src="http://img5.mtime.cn/mg/2016/11/28/155750.78638707.jpg">
+          <img width="75%" height="300" src="http://img5.mtime.cn/mg/2016/11/28/155750.78638707.jpg">
           <div class="hot_movie_context">
             <label>昨夜秋风凋碧树&nbsp;<span>1999</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
@@ -80,8 +80,21 @@ export default {
 
 <style lang="stylus" scoped>
 .hot-movies
-  width 100%
   height 350px
+  margin 0px auto
+@media screen and (min-width: 1201px) { 
+  .hot-movies {width: 1200px}  
+} 
+@media screen and (max-width: 1200px) { 
+  .hot-movies {width: 900px}  
+} 
+@media screen and (max-width: 900px) { 
+  .hot-movies {width: 200px;}  
+} 
+@media screen and (max-width: 500px) { 
+  .hot-movies {width: 100px;}  
+} 
+
 .hot-movies h3
   border-bottom 1px solid #d0d0d0
   padding-bottom 15px
@@ -93,7 +106,7 @@ export default {
   padding-left 25px
   padding-right 20px
   margin-top -305px
-  margin-left 1180px
+  margin-left 75%
 .hot_movie_context label
   font-size 20px
   color #004B97
