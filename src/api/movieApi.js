@@ -37,5 +37,14 @@ export default {
       withCredentials: true
     }
     )
+  },
+  getMovieByDoubanId (id) {
+    let url = movieApi.doubanMovieUrl(id)
+    return axios({
+      method: 'get',
+      url: url,
+      withCredentials: true
+    }
+    )
   }
 }

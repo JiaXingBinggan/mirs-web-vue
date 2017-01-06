@@ -2,7 +2,7 @@
   <div class="search-view">
     <div class="search-bar" @keyup.enter="searchMovie">
       <el-input placeholder="请输入内容" v-model="keywords" style="width: 600px;" size="large">
-        <el-select v-model="type" slot="prepend" placeholder="请选择 ">
+        <el-select v-model="type" slot="prepend" placeholder="名称 ">
           <el-option label="名称" value="3"></el-option>
           <el-option label="别名" value="16"></el-option>
           <el-option label="导演" value="7"></el-option>
@@ -46,7 +46,7 @@
         </template>
       </mu-list>
     </div>
-    <el-button class="load-more-button" @click="loadMore" :loading="loading" :disabled="disabled">{{buttonText}}</el-button>
+    <el-button v-show="movies.length > 0" class="load-more-button" @click="loadMore" :loading="loading" :disabled="disabled">{{buttonText}}</el-button>
   </div>
 </template>
 
@@ -67,13 +67,13 @@ export default {
     }
     return {
       keywords: '',
-      type: 3,
+      type: '',
       sortBy,
       limit: 10,
       offset: 0,
       movies: [],
       loading: false,
-      disabled: false,
+      disabled: true,
       buttonText: '点击加载更多'
     }
   },
@@ -102,7 +102,15 @@ export default {
     },
     searchMovie () {
       var _this = this
-      movieApi.searchMovie(this.keywords, this.type, this.sortBy['id'], this.limit, this.offset)
+      var type = this.type
+      var keywords = this.keywords
+      if (type === '') {
+        type = 3
+      }
+      if (keywords === '' || keywords === undefined) {
+        keywords = '1'
+      }
+      movieApi.searchMovie(keywords, type, this.sortBy['id'], this.limit, this.offset)
       .then(function (res) {
         if (res.data['success'] === false) {
           _this.$message({
@@ -171,5 +179,5 @@ export default {
     width 120px
 .movie-content
   float left
-  width 930px
+  width 940px
 </style>

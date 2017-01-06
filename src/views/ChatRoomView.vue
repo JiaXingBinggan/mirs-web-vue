@@ -16,8 +16,8 @@
         </div>
       </div>
     </div>
-    <div class="post_block">
-      <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 6}" v-on:keyup.enter="sendMessage" v-model="content" placeholder="请输入内容" class="send_input"></el-input>
+    <div class="post_block" v-on:keyup.enter="sendMessage">
+      <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" v-on:keyup.enter="sendMessage" v-model="content" placeholder="请输入内容" class="send_input"></el-input>
       <el-button type="primary" icon="edit" v-on:keyup.enter="sendMessage" @click="sendMessage" class="send_button"></el-button>
     </div>
   </div>
@@ -72,7 +72,7 @@ export default {
     overflow hidden
   .main-contant
     width 90%
-    height 600px
+    height 450px
     overflow-x hidden
     font-size 10px
     text-align left
@@ -117,7 +117,7 @@ export default {
     border-top 0px
     padding-top 20px
     width 90%
-    height 92px
+    height 76px
     border-bottom-left-radius 10px
     border-bottom-right-radius 10px
   .send_input
@@ -128,7 +128,7 @@ export default {
   .send_button
     margin-left 10px
     width 50px
-    height 50px 
+    height 50px
     border-radius 50%
     background  #0080FF
 </style>
