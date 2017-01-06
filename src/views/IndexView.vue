@@ -2,10 +2,10 @@
   <div class="index-view">
     <!-- <h1 @click='notice()'>{{msg}}</h1> -->
     <div class="wrapper">
-      <today-movies></today-movies>
+      <hot-movies></hot-movies>
     </div>
     <div class="wrapper">
-      <hot-movies></hot-movies>
+      <today-movies></today-movies>
     </div>
     <div class="wrapper">
       <high-score-movies></high-score-movies>
