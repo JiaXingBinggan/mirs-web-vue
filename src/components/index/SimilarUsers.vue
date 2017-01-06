@@ -4,7 +4,7 @@
     <div class="usercontainer">
         <div class="user" v-for="user in user">
           <img class="face" width="120" height="120" :src="user.avatar" @click="goToUser(user.id)">
-          <h3>{{user.username}}</h3>
+          <h4>{{user.username}}</h4>
         </div>
     </div>
   </div>
@@ -80,6 +80,7 @@ export default {
 .user .face
   border-radius 50%
   margin 20px 20px 0px 50px
-.user h3
+.user h4
   text-align center
+  padding-left 60px
 </style>
