@@ -170,133 +170,38 @@
             　　{{movie.synopsis}}
       </div>
       </section>
-      <section id="photo" class="section-same">
+      <!-- <section id="photo" class="section-same">
         <h2>
           {{movie.name}}的图片 · · · · · ·(
         <a href="https://movie.douban.com/photos/photo/2293569209/">全部</a>
         )
         </h2>
         <ul>
-          <!-- <li v-for="stillPhoto in movie.stillsPhotosLinks">
+          <li v-for="stillPhoto in movie.stillsPhotosLinks">
             <a href="https://movie.douban.com/photos/photo/2293569209/">
             <img :src="stillPhoto">
-          </li> -->
-        </ul>
+          </li>
+        </ul> -->
         <br><br><br><br><br><br>
         <br>
       </section>
-      <section id="award" class="section-same">
+      <section id="award" class="section-same" v-if="movie.awards">
         <h2>
           {{movie.name}}的获奖情况 · · · · · ·
         </h2>
-        <div v-if="movie.awards">
-          {{movie.awards}}
-        </div>
-        <div v-else>
-          暂无
-        </div>
+        {{movie.awards}}
       </section>
       <section id="also-like-movie" class="section-same">
         <h2>喜欢这部电影的人也喜欢 · · · · · ·</h2>
-        <div id="also-like-movie-content">
-          <dl>
+        <div id="also-like-movie-content" v-for='alsoLikeMovie in movie.alsoLikeMovies'>
+          <dl @click="goTo(alsoLikeMovie.id)" class="alsoLikeID">
             <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2221319641.jpg">
+              <a>
+                <img :src="alsoLikeMovie.coverLink">
               </a>
             </dt>
             <dd>
-              <a href="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">萤火之森</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/5989818/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img5.doubanio.com/view/movie_poster_cover/lpst/public/p2266293606.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p1958733032.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2221319641.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2221319641.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1272904657.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">
-                <img src="https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2221319641.jpg">
-              </a>
-            </dt>
-            <dd>
-              <a href="https://movie.douban.com/subject/25814705/?from=subject-page">小森林 夏秋篇</a>
+              <a>{{ alsoLikeMovie.name}}</a>
             </dd>
           </dl>
         </div>
@@ -398,6 +303,10 @@ export default {
             tempAwards = tempAwards + movie['awards'][i] + ' '
           }
           movie['awards'] = tempAwards
+
+          // var alsoLikeMovies = []
+          // alsoLikeMovies = this.get_also_like_movie(movie['alsoLikeMovies'])
+          movie['alsoLikeMovies'] = _this.get_also_like_movie(movie['alsoLikeMovies'])
           console.log(movie)
           _this.movie = movie
           _this.getCurrentComment(1)
@@ -410,6 +319,49 @@ export default {
           window.console.log(res.data)
         }
       })
+    },
+    get_also_like_movie (alsoLikeMovies) {
+      // 遍历相似电影id，获得标题和cover
+      // var _this = this
+      var alsoLikeMoviesTemp = []
+      if (alsoLikeMovies !== []) {
+        for (var j = 0; j < alsoLikeMovies.length; j++) {
+          var alsoLikeMovieId = alsoLikeMovies[j]
+          movieApi.getMovieByDoubanId(alsoLikeMovieId)
+          .then(function (res) {
+            if (res.data['success'] === false) {
+              // _this.$message({
+              //   message: res.data['error'],
+              //   type: 'error'
+              // })
+            } else {
+              // success
+              let movie = res.data['data']
+              var name = movie['name']
+              if (movie['name'].length > 10) {
+                name = movie['name'].substring(0, 7) + '...'
+              }
+
+              var coverLink = movie['coverLink']
+              var id = movie['id']
+              var oneMovie = {'id': id, 'name': name, 'coverLink': coverLink}
+              // console.log('66666666666*********88')
+              // console.log(oneMovie)
+              alsoLikeMoviesTemp.push(oneMovie)
+            }
+          })
+          .catch(function (res) {
+            if (res instanceof Error) {
+              window.console.log(res.message)
+            } else {
+              window.console.log(res.data)
+            }
+          })
+        }
+      }
+      console.log('**********************8822222')
+      console.log(alsoLikeMoviesTemp)
+      return alsoLikeMoviesTemp
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
@@ -462,6 +414,10 @@ export default {
         })
         this.commentText = ''
       }
+    },
+    goTo (id) {
+      this.$router.replace('/movie/' + id)
+      this.get_one_movie()
     },
     cancleComment () {
       this.visibleComment = false
@@ -597,4 +553,6 @@ a
   float:right;
 #commentCancle
   float:left;
+.alsoLikeID
+  margin: 10px 10px 10px 10px
 </style>
