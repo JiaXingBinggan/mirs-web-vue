@@ -65,7 +65,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .message-container
-	width 350px 
+	width 360px 
 	border 1px solid #E0E0E0
 	-webkit-border-radius 8px
 	-moz-border-radius 8px
