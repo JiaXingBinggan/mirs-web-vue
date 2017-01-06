@@ -1,11 +1,12 @@
 <template>
   <div class="today-movies">
+    <h3> {{msg}} </h3>
     <div class="border-movie" v-for="movie in movies">
       <div class="single-movie" @click="goToMovie(movie.id)" @mouseenter="change_class(movie)" @mouseleave="re_class()">
         <img width="100%" height="85%" :src="movie.coverLink" >
         <div class="movie-title">
           <label>{{movie.name.substring(0,15)}}<span> {{movie.doubanRating}}</span></label>
-        </div> 
+        </div>
       </div>
       <div v-if="current_movie === movie" class="movie_context_active">
           <div class="movie_context">
@@ -32,6 +33,7 @@
 
 <script>
 import movieApi from '../../api/movieApi'
+import Store from '../../utils/store.js'
 export default {
   name: 'today-movies',
   created () {
@@ -40,10 +42,10 @@ export default {
   data () {
     return {
       isActive: false,
-      msg: '今日推荐',
+      msg: '今日的电影推荐',
       current_movie: '',
       value: 9,
-      movies: ''
+      movies: []
     }
   },
   methods: {
@@ -54,18 +56,26 @@ export default {
       this.current_movie = ''
     },
     get_today_movies () {
-      var _this = this
-      movieApi.getDailyMovie()
-      .then(function (res) {
-        _this.movies = res.data['data']
-      })
-      .catch(function (res) {
-        if (res instanceof Error) {
-          window.console.log(res.message)
-        } else {
-          window.console.log(res.data)
-        }
-      })
+      if (this.$store.state.user.login === true) {
+        this.movies = Store.fetch('today-movies')
+      }
+      if (this.movies.length === 0) {
+        var _this = this
+        movieApi.getDailyMovie()
+        .then(function (res) {
+          if (_this.$store.state.user.login === true) {
+            Store.save('today-movies', res.data['data'])
+          }
+          _this.movies = res.data['data']
+        })
+        .catch(function (res) {
+          if (res instanceof Error) {
+            window.console.log(res.message)
+          } else {
+            window.console.log(res.data)
+          }
+        })
+      }
     },
     goToMovie (id) {
       this.$router.push('/movie/' + id)
@@ -79,25 +89,28 @@ export default {
 }
 </script>
 
-<style> 
+<style>
   .today-movies{height: 720px;margin:0px auto;}
-</style> 
+</style>
 <style lang="stylus" scoped>
 .today-movies
   height 720px
   margin 0px auto
-@media screen and (min-width: 1201px) { 
-  .today-movies {width: 1200px}  
-} 
-@media screen and (max-width: 1200px) { 
-  .today-movies {width: 900px}  
-} 
-@media screen and (max-width: 900px) { 
-  .today-movies {width: 200px;}  
-} 
-@media screen and (max-width: 500px) { 
-  .today-movies {width: 100px;}  
-} 
+  h3
+    border-bottom 1px solid #d0d0d0
+    padding-bottom 15px
+@media screen and (min-width: 1201px) {
+  .today-movies {width: 1200px}
+}
+@media screen and (max-width: 1200px) {
+  .today-movies {width: 900px}
+}
+@media screen and (max-width: 900px) {
+  .today-movies {width: 200px;}
+}
+@media screen and (max-width: 500px) {
+  .today-movies {width: 100px;}
+}
 .border-movie
   width 20%
   height 45%
