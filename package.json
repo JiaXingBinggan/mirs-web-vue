@@ -15,7 +15,7 @@
     "es6-promise": "^4.0.5",
     "lodash": "^4.17.2",
     "muse-ui": "^2.0.0-alpha.7",
-    "sockjs-client": "^1.1.1",
+    "sockjs-client": "^1.0.0",
     "stompjs": "^2.3.3",
     "vue": "^2.0.1",
     "vue-easy-slider": "^1.4.0",
